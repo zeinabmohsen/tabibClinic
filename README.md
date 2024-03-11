@@ -12,9 +12,6 @@
 1. **Clone the repository**
 
 2. **Install dependencies:**
- ```bash
-    npm install #For both front and back
-    ```
 
 3. **Set up environment variables:**
 
@@ -25,6 +22,7 @@
     ```
 
 4. **Run the MongoDB server:**
+npm install
 
 
 5. **Run the application:**
