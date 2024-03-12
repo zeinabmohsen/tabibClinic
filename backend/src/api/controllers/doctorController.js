@@ -37,7 +37,7 @@ const getDoctorById = async (req, res) => {
  */
 const getAllDoctors = async (req, res) => {
   try {
-      const doctors = await User.find({ type: "doctor" }).populate('schedule');
+      const doctors = await User.find({ role: "doctor" }).populate('schedule');
 
       if (!doctors || doctors.length === 0) {
           return res.status(404).json({ message: 'No doctors found' });
