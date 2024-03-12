@@ -22,7 +22,7 @@ export const createPatient = (patient) => async (dispatch) => {
   try {
     const { data } = await axios.post("/patient", {
       ...patient,
-      // dob: new Date(patient.dob).toISOString(),
+      // dob: new Date(patient?.dob).toISOString(),
     });
     toast.success("Patient created successfully");
     dispatch({ type: ACTIONS.CREATE_PATIENT, data });

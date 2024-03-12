@@ -17,13 +17,13 @@ const AdminData = (state = initialState, action) => {
       return {
         ...state,
         allUsers: state.allUsers.map((user) =>
-          user.id === action.data.id ? action.data : user
+          user?.id === action.data.id ? action.data : user
         ),
       };
     case ACTIONS.DELETE_USER:
       return {
         ...state,
-        allUsers: state.allUsers.filter((user) => user.id !== action.userId),
+        allUsers: state.allUsers.filter((user) => user?.id !== action.userId),
       };
     default:
       return state;

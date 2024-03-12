@@ -24,9 +24,9 @@ export default function ServicesInfo() {
   useEffect(() => {
     // remove the /services from the history
     if (router.pathname === "/services") {
-      router.replace(`/doctors/${user._id}`);
+      router.replace(`/doctors/${user?._id}`);
     }
-    router.push(`/doctors/${user._id}`);
+    router.push(`/doctors/${user?._id}`);
   }, [services, router]);
 
   return (

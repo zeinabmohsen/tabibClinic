@@ -51,7 +51,7 @@ const InvoiceData = (state = initialState, { type, data }) => {
         allInvoices: {
           loaded: true,
           data: state.allInvoices.data.map((invoice) =>
-            invoice._id === data._id ? data : invoice
+            invoice?._id === data._id ? data : invoice
           ),
         },
       };
@@ -61,7 +61,7 @@ const InvoiceData = (state = initialState, { type, data }) => {
         allInvoices: {
           loaded: true,
           data: state.allInvoices.data.filter(
-            (invoice) => invoice._id !== data
+            (invoice) => invoice?._id !== data
           ),
         },
       };

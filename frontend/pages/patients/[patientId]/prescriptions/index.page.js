@@ -66,7 +66,7 @@ const router = useRouter();
               type="text"
               className="px-3 py-2 rounded-md border focus:outline-none focus:ring-2"
               value={newMedication}
-              onChange={(event) => setNewMedication(event.target.value)}
+              onChange={(event) => setNewMedication(event?.target.value)}
             />
           </div>
           <div className="flex flex-col">
@@ -77,7 +77,7 @@ const router = useRouter();
               type="text"
               className="px-3 py-2 rounded-md border focus:outline-none focus:ring-2"
               value={newDosage}
-              onChange={(event) => setNewDosage(event.target.value)}
+              onChange={(event) => setNewDosage(event?.target.value)}
             />
           </div>
         </div>
@@ -89,7 +89,7 @@ const router = useRouter();
             className="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2"
             rows="5"
             value={newInstructions}
-            onChange={(event) => setNewInstructions(event.target.value)}
+            onChange={(event) => setNewInstructions(event?.target.value)}
           />
         </div>
         <div className="flex justify-end mt-4">

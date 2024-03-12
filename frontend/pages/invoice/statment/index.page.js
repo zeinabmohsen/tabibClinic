@@ -269,8 +269,8 @@ const InvoiceStatement = () => {
                   label: "All",
                 },
                 ...doctors.map((doctor) => ({
-                  value: doctor._id,
-                  label: `${doctor.firstName} ${doctor.lastName}`,
+                  value: doctor?._id,
+                  label: `${doctor?.firstName} ${doctor?.lastName}`,
                 })),
               ]}
               value={
@@ -292,7 +292,7 @@ const InvoiceStatement = () => {
                   return;
                 } else {
                   const selectedDoctor = doctors.find(
-                    (doctor) => doctor._id === value
+                    (doctor) => doctor?._id === value
                   );
                   setFormData({ ...formData, selectedDoctor });
                 }

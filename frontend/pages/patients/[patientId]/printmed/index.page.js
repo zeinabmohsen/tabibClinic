@@ -7,7 +7,7 @@ function MedicalRecordsForm() {
   const [notes, setNotes] = useState('');
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event?.preventDefault();
     console.log('Form submitted:', { doctorName, patientName, date, notes });
     setDoctorName('');
     setPatientName('');
@@ -92,7 +92,7 @@ function MedicalRecordsForm() {
               type="text"
               className="px-3 py-2 rounded-md border focus:outline-none focus:ring-2"
               value={doctorName}
-              onChange={(event) => setDoctorName(event.target.value)}
+              onChange={(event) => setDoctorName(event?.target.value)}
             />
           </div> */}
           {/* <div className="flex flex-col">
@@ -101,7 +101,7 @@ function MedicalRecordsForm() {
               type="text"
               className="px-3 py-2 rounded-md border focus:outline-none focus:ring-2"
               value={patientName}
-              onChange={(event) => setPatientName(event.target.value)}
+              onChange={(event) => setPatientName(event?.target.value)}
             />
           </div> */}
         </div>
@@ -111,7 +111,7 @@ function MedicalRecordsForm() {
             type="date"
             className="px-3 py-2 rounded-md border focus:outline-none focus:ring-2"
             value={date}
-            onChange={(event) => setDate(event.target.value)}
+            onChange={(event) => setDate(event?.target.value)}
           />
         </div> */}
         <div className="mt-4">
@@ -120,7 +120,7 @@ function MedicalRecordsForm() {
             className="w-full px-3 py-2 rounded-md border focus:outline-none focus:ring-2"
             rows="5"
             value={notes}
-            onChange={(event) => setNotes(event.target.value)}
+            onChange={(event) => setNotes(event?.target.value)}
           />
         </div>
       =

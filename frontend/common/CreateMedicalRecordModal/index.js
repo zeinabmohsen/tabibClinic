@@ -11,7 +11,7 @@ const CreateMedicalRecordModal = ({ setMRModal = () => {} }) => {
   const patientId = router.query.patientId;
 
   const patient = useSelector(
-    ({ PatientData }) => PatientData?.selectedPatient.data
+    ({ PatientData }) => PatientData?.selectedPatient?.data
   );
 
   const [mrData, setMRData] = useState({

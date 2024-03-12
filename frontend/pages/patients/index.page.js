@@ -24,7 +24,7 @@ const PatientsTable = () => {
       <div className="flex justify-between items-center mb-5">
         <div className="flex items-center">
           {/* Button 2 */}
-          {(user.role === "admin" || user.role === "secretary") && (
+          {(user?.role === "admin" || user?.role === "secretary") && (
             <button
               onClick={() => setModal(true)}
               className="p-4 ml-5 bg-white dark:bg-gray-800 dark:text-white shadow-md sm:rounded-lg  text-nowrap"
@@ -78,15 +78,15 @@ const PatientsTable = () => {
                 } border-b dark:bg-gray-800 dark:border-gray-700
                 hover:bg-gray-100 dark:hover:bg-gray-600 hover:border-gray-200 dark:hover:border-gray-500 cursor-pointer
                 `}
-                onClick={() => router.push(`/patients/${patient._id}`)}
+                onClick={() => router.push(`/patients/${patient?._id}`)}
               >
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {patient.firstName} {patient.lastName}
+                  {patient?.firstName} {patient?.lastName}
                 </td>
-                <td className="px-6 py-4">{patient.email}</td>
-                <td className="px-6 py-4">{patient.phone}</td>
-                <td className="px-6 py-4">{patient.gender}</td>
-                <td className="px-6 py-4">{patient.city}</td>
+                <td className="px-6 py-4">{patient?.email}</td>
+                <td className="px-6 py-4">{patient?.phone}</td>
+                <td className="px-6 py-4">{patient?.gender}</td>
+                <td className="px-6 py-4">{patient?.city}</td>
                 <td className="px-6 py-4"></td>
               </tr>
             ))}

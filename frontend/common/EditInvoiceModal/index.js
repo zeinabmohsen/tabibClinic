@@ -50,7 +50,7 @@ const InvoiceForm = ({
           })
         )
       : dispatch(
-          createInvoice(patient._id, {
+          createInvoice(patient?._id, {
             doctorId: doctor,
             paymentStatus,
             amount,
@@ -69,7 +69,7 @@ const InvoiceForm = ({
     dispatch,
     initialValues._id,
     editing,
-    patient._id,
+    patient?._id,
   ]);
 
   useEffect(() => {
@@ -96,8 +96,8 @@ const InvoiceForm = ({
           className="w-full border  border-gray-300 rounded p-2 focus:outline-none focus:border-indigo-900"
         >
           {doctors.map((doctor) => (
-            <option value={doctor._id}>
-              {doctor.firstName} {doctor.lastName}
+            <option value={doctor?._id}>
+              {doctor?.firstName} {doctor?.lastName}
             </option>
           ))}
         </select>

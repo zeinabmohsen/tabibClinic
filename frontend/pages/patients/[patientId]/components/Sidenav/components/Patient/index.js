@@ -26,7 +26,7 @@ export default function Patient({
         [styles.patient]: true,
         [styles.active]: index === active,
       })}
-      onClick={() => select(patient._id)}
+      onClick={() => select(patient?._id)}
     >
       <div>
         <h3>

@@ -25,7 +25,7 @@ const ScheduleTable = () => {
   const handleStartTimeChange = (index, event) => {
     const newSchedule = scheduleForm.map((day, i) => {
       if (i === index) {
-        return { ...day, startTime: event.target.value };
+        return { ...day, startTime: event?.target.value };
       }
       return day;
     });
@@ -36,7 +36,7 @@ const ScheduleTable = () => {
   const handleEndTimeChange = (index, event) => {
     const newSchedule = scheduleForm.map((day, i) => {
       if (i === index) {
-        return { ...day, endTime: event.target.value };
+        return { ...day, endTime: event?.target.value };
       }
       return day;
     });
@@ -48,9 +48,9 @@ const ScheduleTable = () => {
     await dispatch(
       updateDoctorSchedule(doctorId, user?.schedule?._id, scheduleForm)
     );
-  }, [dispatch, doctorId, scheduleForm, user.schedule?._id]);
+  }, [dispatch, doctorId, scheduleForm, user?.schedule?._id]);
 
-  // if (user.role === "secretary")
+  // if (user?.role === "secretary")
   return (
     <div className={styles.logout}>
       <button

@@ -56,31 +56,31 @@ export default function Nav() {
           />
           <Tab
             text={
-              user.role === "doctor"
+              user?.role === "doctor"
                 ? "Services"
-                : user.role === "admin" || user.role === "secretary"
+                : user?.role === "admin" || user?.role === "secretary"
                 ? "Doctors"
                 : null
             }
             icon={
-              user.role === "doctor"
+              user?.role === "doctor"
                 ? faBriefcase
-                : user.role === "admin" || user.role === "secretary"
+                : user?.role === "admin" || user?.role === "secretary"
                 ? faUsers
                 : null
             }
             active={active === "services" || active === "doctors"}
             setActive={setActive}
             push={
-              user.role === "doctor"
-                ? `/doctors/${user._id}`
-                : user.role === "admin" || user.role === "secretary"
+              user?.role === "doctor"
+                ? `/doctors/${user?._id}`
+                : user?.role === "admin" || user?.role === "secretary"
                 ? "/doctors"
                 : null
             }
           />
           <Tab
-            text={user.firstName + " " + user.lastName}
+            text={user?.firstName + " " + user?.lastName}
             icon={faUser}
             active={active === "profile"}
             setActive={setActive}

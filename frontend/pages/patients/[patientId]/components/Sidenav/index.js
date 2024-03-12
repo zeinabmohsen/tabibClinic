@@ -15,9 +15,9 @@ export default function Sidenav({
     if (searchText === "") {
       return patient;
     } else if (
-      patient.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
-      patient.lastName.toLowerCase().includes(searchText.toLowerCase()) ||
-      patient.email.toLowerCase().includes(searchText.toLowerCase())
+      patient?.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
+      patient?.lastName.toLowerCase().includes(searchText.toLowerCase()) ||
+      patient?.email.toLowerCase().includes(searchText.toLowerCase())
     ) {
       return patient;
     }

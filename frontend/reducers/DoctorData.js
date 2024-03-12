@@ -43,7 +43,7 @@ const DoctorData = (state = initialState, { type, data }) => {
         allDoctors: {
           loaded: true,
           data: state.allDoctors.data.map((doctor) =>
-            doctor._id === data._id ? data : doctor
+            doctor?._id === data._id ? data : doctor
           ),
         },
       };
@@ -53,7 +53,7 @@ const DoctorData = (state = initialState, { type, data }) => {
         allDoctors: {
           loaded: true,
           data: state.allDoctors.data.filter(
-            (doctor) => doctor._id !== data._id
+            (doctor) => doctor?._id !== data._id
           ),
         },
       };

@@ -31,7 +31,7 @@ export default function PatientInfo() {
   const [selectedRecord, setSelectedRecord] = useState(null);
 
   const selectedPatient = useSelector(
-    ({ PatientData }) => PatientData?.selectedPatient.data
+    ({ PatientData }) => PatientData?.selectedPatient?.data
   );
 
   const medicalRecords = useSelector(

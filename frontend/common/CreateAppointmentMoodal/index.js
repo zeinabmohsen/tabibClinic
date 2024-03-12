@@ -69,8 +69,8 @@ export default function zCreateAppointmentModal({
       selectedAppointment?.status !== "rescheduled"
     ) {
       setFormData({
-        doctor: `${selectedAppointment.doctor._id}`,
-        patient: `${selectedAppointment.patient._id}`,
+        doctor: `${selectedAppointment?.doctor?._id}`,
+        patient: `${selectedAppointment?.patient?._id}`,
         start: appointmentRange?.start?.toString().slice(0, 16),
         end: appointmentRange?.end?.toString().slice(0, 16),
         reason: selectedAppointment.reason,
@@ -83,8 +83,8 @@ export default function zCreateAppointmentModal({
       selectedAppointment?.status === "rescheduled"
     ) {
       setFormData({
-        doctor: `${selectedAppointment.doctor._id}`,
-        patient: `${selectedAppointment.patient._id}`,
+        doctor: `${selectedAppointment.doctor?._id}`,
+        patient: `${selectedAppointment.patient?._id}`,
         newStart: appointmentRange?.start?.toString().slice(0, 16),
         newEnd: appointmentRange?.end?.toString().slice(0, 16),
       });
@@ -116,19 +116,19 @@ export default function zCreateAppointmentModal({
                 ? {
                     label:
                       allDoctors.data.find(
-                        (doctor) => doctor._id === formData.doctor
+                        (doctor) => doctor?._id === formData.doctor
                       )?.firstName +
                       " " +
                       allDoctors.data.find(
-                        (doctor) => doctor._id === formData.doctor
+                        (doctor) => doctor?._id === formData.doctor
                       )?.lastName,
                     value: formData.doctor,
                   }
                 : null
             }
             values={allDoctors.data.map((doctor) => ({
-              label: doctor.firstName + " " + doctor.lastName,
-              value: doctor._id,
+              label: doctor?.firstName + " " + doctor?.lastName,
+              value: doctor?._id,
             }))}
             setValue={(selectedValue) =>
               setFormData({
@@ -278,20 +278,20 @@ export default function zCreateAppointmentModal({
                     label:
                       allPatients.data?.find(
                         (patient) =>
-                          patient._id === formData.patient ||
-                          patient.id === formData.patient
+                          patient?._id === formData.patient ||
+                          patient?.id === formData.patient
                       )?.firstName +
                       " " +
                       allPatients.data.find(
                         (patient) =>
-                          patient._id === formData.patient ||
-                          patient.id === formData.patient
+                          patient?._id === formData.patient ||
+                          patient?.id === formData.patient
                       )?.lastName +
                       " " +
                       allPatients.data.find(
                         (patient) =>
-                          patient._id === formData.patient ||
-                          patient.id === formData.patient
+                          patient?._id === formData.patient ||
+                          patient?.id === formData.patient
                       )?.phone,
 
                     value: formData.patient,
@@ -300,12 +300,12 @@ export default function zCreateAppointmentModal({
             }
             values={allPatients.data.map((patient) => ({
               label:
-                patient.firstName +
+                patient?.firstName +
                 " " +
-                patient.lastName +
+                patient?.lastName +
                 " " +
-                patient.phone,
-              value: patient._id || patient.id,
+                patient?.phone,
+              value: patient?._id || patient?.id,
             }))}
             setValue={(selectedValue) =>
               setFormData({

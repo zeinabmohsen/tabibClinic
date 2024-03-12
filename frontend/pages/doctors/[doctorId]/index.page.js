@@ -49,7 +49,7 @@ export default function DoctorInfo() {
 
   useEffect(() => {
     if(doctorId === "undefined" && user?._id && user?.role === "doctor") {
-      router.push(`/doctors/${user._id}`);
+      router.push(`/doctors/${user?._id}`);
     }
   }, [doctorId, router, user]);
 

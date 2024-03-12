@@ -43,7 +43,7 @@ const PatientData = (state = initialState, { type, data }) => {
         allPatients: {
           loaded: true,
           data: state.allPatients.data.map((patient) =>
-            patient.id === data.id ? data : patient
+            patient?.id === data.id ? data : patient
           ),
         },
       };
@@ -52,7 +52,7 @@ const PatientData = (state = initialState, { type, data }) => {
         ...state,
         allPatients: {
           loaded: true,
-          data: state.allPatients.data.filter((patient) => patient.id !== data),
+          data: state.allPatients.data.filter((patient) => patient?.id !== data),
         },
       };
     default:

@@ -15,13 +15,13 @@ const ScheduleTable = () => {
 
   const handleStartTimeChange = (index, event) => {
     const newStartTimes = [...startTimes];
-    newStartTimes[index] = event.target.value;
+    newStartTimes[index] = event?.target.value;
     setStartTimes(newStartTimes);
   };
 
   const handleEndTimeChange = (index, event) => {
     const newEndTimes = [...endTimes];
-    newEndTimes[index] = event.target.value;
+    newEndTimes[index] = event?.target.value;
     setEndTimes(newEndTimes);
   };
 

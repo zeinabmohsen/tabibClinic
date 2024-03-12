@@ -25,7 +25,7 @@ const MyApp = ({ Component, pageProps, domainName }) => {
   }, [dispatch]);
   
   useEffect(() => {
-    if (user._id) {
+    if (user?._id) {
       setIsLoadingUser(false);
     }
   }, [user]);
@@ -33,12 +33,12 @@ const MyApp = ({ Component, pageProps, domainName }) => {
   useEffect(() => {
     if (!isLoadingUser) {
       if (token) {
-        if (!user._id && !isAuthPage) {
+        if (!user?._id && !isAuthPage) {
           router.push("/login");
-        } else if (user._id && isAuthPage) {
+        } else if (user?._id && isAuthPage) {
           router.push("/calendar");
         }
-      } else if (!token && !isAuthPage && !user._id) {
+      } else if (!token && !isAuthPage && !user?._id) {
         router.push("/login");
       }
     } else {
@@ -46,7 +46,7 @@ const MyApp = ({ Component, pageProps, domainName }) => {
         router.push("/login");
       }
     }
-  }, [token, isAuthPage, router, user._id, isLoadingUser]);
+  }, [token, isAuthPage, router, user?._id, isLoadingUser]);
 
   // refresh the page on back button click to prevent stale data
   useEffect(() => {

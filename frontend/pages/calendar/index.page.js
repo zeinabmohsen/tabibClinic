@@ -56,12 +56,12 @@ export default function Calendar() {
     if (
       allAppointments &&
       allAppointments.data &&
-      (user.role === "admin" || user.role === "secretary") &&
+      (user?.role === "admin" || user?.role === "secretary") &&
       (selectedDoctor === 0 || !selectedDoctor || selectedDoctor === "all")
     ) {
       const mappedEvents = allAppointments.data.map((event) => {
         let color;
-        switch (event.status) {
+        switch (event?.status) {
           case "scheduled":
             color = "blue";
             break;
@@ -86,7 +86,7 @@ export default function Calendar() {
     } else if (doctorAppointments && doctorAppointments.data) {
       const mappedEvents = doctorAppointments.data.map((event) => {
         let color;
-        switch (event.status) {
+        switch (event?.status) {
           case "scheduled":
             color = "blue";
             break;
@@ -109,17 +109,17 @@ export default function Calendar() {
       });
       setEvents(mappedEvents);
     }
-  }, [allAppointments, doctorAppointments, selectedDoctor, user.role]);
+  }, [allAppointments, doctorAppointments, selectedDoctor, user?.role]);
 
   useEffect(() => {
-    if (user.role === "admin" || user.role === "secretary") {
+    if (user?.role === "admin" || user?.role === "secretary") {
       dispatch(getAllDoctors());
       dispatch(getAllAppointments());
       dispatch(getAllPatients());
-    } else if (user.role === "doctor") {
+    } else if (user?.role === "doctor") {
       dispatch(getAppointmentsByLoggedInDoctor());
     }
-  }, [dispatch, user.role, user.role, user._id]);
+  }, [dispatch, user?.role, user?.role, user?._id]);
 
   useEffect(() => {
     if (
@@ -146,7 +146,7 @@ export default function Calendar() {
       <main className={styles.container}>
          {(user?.role === "admin" || user?.role === "secretary") && (
           <div className={styles.select}>
-            {user.role === "admin" && (
+            {user?.role === "admin" && (
               <button
                 onClick={() => setModal(true)}
                 className="btn btn-primary mb-3 w-50"
@@ -194,8 +194,8 @@ export default function Calendar() {
                     label: "All",
                   },
                   ...allDoctors.data.map((doctor) => ({
-                    value: doctor._id,
-                    label: `${doctor.firstName} ${doctor.lastName}`,
+                    value: doctor?._id,
+                    label: `${doctor?.firstName} ${doctor?.lastName}`,
                   })),
                 ]}
                 value={
@@ -209,11 +209,11 @@ export default function Calendar() {
                         value: selectedDoctor._id,
                         label:
                           allDoctors.data.find(
-                            (doctor) => doctor._id === selectedDoctor
+                            (doctor) => doctor?._id === selectedDoctor
                           )?.firstName +
                           " " +
                           allDoctors.data.find(
-                            (doctor) => doctor._id === selectedDoctor
+                            (doctor) => doctor?._id === selectedDoctor
                           )?.lastName,
                       }
                     : null
@@ -256,7 +256,7 @@ export default function Calendar() {
               <div
                 className={styles.eventContent}
                 onClick={() => {
-                  router.push(`/patients/${e.event.extendedProps.patient._id}`);
+                  router.push(`/patients/${e.event?.extendedProps.patient?._id}`);
                 }}
                 onContextMenu={(i) => {
                   i.preventDefault();
@@ -280,15 +280,15 @@ export default function Calendar() {
                   {e?.event?.extendedProps?.patient?.lastName}
                 </p>
                 <p>Status: {e?.event?.extendedProps?.status}</p>
-                <p>{e.event.extendedProps.reason}</p>
+                <p>{e.event?.extendedProps?.reason}</p>
               </div>
             );
           }}
           eventBorderColor={(info) => {
-            return info.event.backgroundColor.toString();
+            return info.event?.backgroundColor.toString();
           }}
           eventBackgroundColor={(info) => {
-            return info.event.backgroundColor.toString();
+            return info.event?.backgroundColor.toString();
           }}
           select={(info) => {
             if (info.view.type === "dayGridMonth") {
@@ -297,7 +297,7 @@ export default function Calendar() {
                 .changeView("timeGridDay", info.start);
               return;
             }
-            if (user.role === "doctor") return;
+            if (user?.role === "doctor") return;
             setSelectedSession(info);
             setAppointmentModal(true);
           }}

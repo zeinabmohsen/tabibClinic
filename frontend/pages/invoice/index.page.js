@@ -28,16 +28,16 @@ const InvoiceTable = () => {
   );
 
   useEffect(() => {
-    if (user.role === "admin" || user.role === "secretary") {
+    if (user?.role === "admin" || user?.role === "secretary") {
       dispatch(getAllInvoices());
     } else {
-      dispatch(getInvoicesByDoctorId(user._id));
+      dispatch(getInvoicesByDoctorId(user?._id));
     }
     dispatch(getAllPatients());
   }, [user]);
 
   useEffect(() => {
-    if (user.role === "admin" || user.role === "secretary") {
+    if (user?.role === "admin" || user?.role === "secretary") {
       setInvoices(allInvoices);
     } else {
       setInvoices(invoicesByDoctor);
@@ -46,7 +46,7 @@ const InvoiceTable = () => {
 
   return (
     <div className="relative overflow-x-auto  sm:rounded-lg mt-20">
-      {(user.role === "admin" || user.role === "secretary") && (
+      {(user?.role === "admin" || user?.role === "secretary") && (
         <Link href="/invoice/statment">
           <button
             className="p-4 ml-5 bg-white dark:bg-gray-800 dark:text-white shadow-md sm:rounded-lg mb-4
@@ -83,7 +83,7 @@ const InvoiceTable = () => {
             <th scope="col" className="px-6 py-3">
               Status
             </th>
-            {user.role === "admin" && (
+            {user?.role === "admin" && (
               <th scope="col" className="px-6 py-3">
                 Action
               </th>
@@ -123,7 +123,7 @@ const InvoiceTable = () => {
               >
                 {invoice?.paymentStatus}
               </td>
-              {user.role === "admin" && (
+              {user?.role === "admin" && (
                 <td className="px-6 py-4">
                   <button
                     onClick={() => {
