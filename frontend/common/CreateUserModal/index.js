@@ -97,7 +97,7 @@ export default function CreateUserModal({
             <div className="flex flex-col gap-1">
               <label htmlFor="title">Password</label>
               <Input
-                type="number"
+                type="text"
                 id="title"
                 className="border border-gray-300 rounded-lg"
                 value={formData.password}
