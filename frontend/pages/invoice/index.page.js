@@ -95,7 +95,7 @@ const InvoiceTable = () => {
             <tr
               key={index}
               className={
-                invoice.paymentStatus === "Unpaid"
+                invoice?.paymentStatus === "Unpaid"
                   ? "bg-red-100"
                   : index % 2 === 0
                   ? "bg-gray-50 dark:bg-gray-800"
@@ -103,25 +103,25 @@ const InvoiceTable = () => {
               }
             >
               <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {`${invoice.patient.firstName} ${invoice.patient.lastName}`}
+                {`${invoice?.patient?.firstName} ${invoice?.patient?.lastName}`}
               </td>
               <td className="px-6 py-4">
                 {" "}
-                {`${invoice.doctor.firstName} ${invoice.doctor.lastName}`}
+                {`${invoice?.doctor?.firstName} ${invoice?.doctor?.lastName}`}
               </td>
               <td className="px-6 py-4">
-                {new Date(invoice.date).toLocaleDateString()}
+                {new Date(invoice?.date).toLocaleDateString()}
               </td>
-              <td className="px-6 py-4">{invoice.doctorAmount}</td>
-              <td className="px-6 py-4">{invoice.clinicAmount}</td>
-              <td className="px-6 py-4">{invoice.amount}</td>
-              <td className="px-6 py-4">{invoice.currency}</td>
+              <td className="px-6 py-4">{invoice?.doctorAmount}</td>
+              <td className="px-6 py-4">{invoice?.clinicAmount}</td>
+              <td className="px-6 py-4">{invoice?.amount}</td>
+              <td className="px-6 py-4">{invoice?.currency}</td>
               <td
                 className={`px-6 py-4 ${
-                  invoice.paymentStatus === "Unpaid" ? "text-red-500" : ""
+                  invoice?.paymentStatus === "Unpaid" ? "text-red-500" : ""
                 }`}
               >
-                {invoice.paymentStatus}
+                {invoice?.paymentStatus}
               </td>
               {user.role === "admin" && (
                 <td className="px-6 py-4">
@@ -136,7 +136,7 @@ const InvoiceTable = () => {
                   </button>
                   <button
                     onClick={() => {
-                      dispatch(deleteInvoice(invoice._id));
+                      dispatch(deleteInvoice(invoice?._id));
                     }}
                     className="text-red-600 dark:text-red-500 hover:underline ml-2"
                   >
