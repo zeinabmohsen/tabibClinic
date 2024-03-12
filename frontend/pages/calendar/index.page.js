@@ -135,224 +135,215 @@ export default function Calendar() {
     }
   }, [dispatch, selectedDoctor, user?.role]);
 
-  if (
-    (user?.role === "doctor" && !doctorAppointments?.loaded) ||
-    ((user?.role === "admin" || user?.role === "secretary") &&
-      !allAppointments?.loaded)
-  ) {
-    return <h1>Loading...</h1>;
-  } else
-    return (
-      <main className={styles.container}>
-         {(user?.role === "admin" || user?.role === "secretary") && (
-          <div className={styles.select}>
-            {user?.role === "admin" && (
-              <button
-                onClick={() => setModal(true)}
-                className="btn btn-primary mb-3 w-50"
-              >
-                Create User
-              </button>
-            )}
-            {isSelected?.extendedProps?._id ? (
-              <>
-                <button
-                  onClick={() => setAppointmentModal(true)}
-                  className="btn btn-primary mb-3 w-50"
-                  ref={updateRef}
-                >
-                  Edit Appointment
-                </button>
-                <button
-                  onClick={() => setStatusModal(true)}
-                  className="btn btn-primary mb-3 w-50"
-                  ref={statusRef}
-                >
-                  Update Status
-                </button>
-                <button
-                  onClick={removeAppointment}
-                  className="btn btn-primary mb-3 w-50"
-                  ref={deleteRef}
-                >
-                  Delete Appointment
-                </button>
-              </>
-            ) : (
+  return (
+    <main className={styles.container}>
+      {(user?.role === "admin" || user?.role === "secretary") && (
+        <div className={styles.select}>
+          {user?.role === "admin" && (
+            <button
+              onClick={() => setModal(true)}
+              className="btn btn-primary mb-3 w-50"
+            >
+              Create User
+            </button>
+          )}
+          {isSelected?.extendedProps?._id ? (
+            <>
               <button
                 onClick={() => setAppointmentModal(true)}
                 className="btn btn-primary mb-3 w-50"
+                ref={updateRef}
               >
-                Create Appointment
+                Edit Appointment
               </button>
-            )}
-            <div className={styles.dropdown}>
-              <Dropdown
-                values={[
-                  {
-                    value: 0,
-                    label: "All",
-                  },
-                  ...allDoctors.data.map((doctor) => ({
-                    value: doctor?._id,
-                    label: `${doctor?.firstName} ${doctor?.lastName}`,
-                  })),
-                ]}
-                value={
-                  selectedDoctor === "all" || selectedDoctor === 0
-                    ? {
-                        value: 0,
-                        label: "All",
-                      }
-                    : selectedDoctor
-                    ? {
-                        value: selectedDoctor._id,
-                        label:
-                          allDoctors.data.find(
-                            (doctor) => doctor?._id === selectedDoctor
-                          )?.firstName +
-                          " " +
-                          allDoctors.data.find(
-                            (doctor) => doctor?._id === selectedDoctor
-                          )?.lastName,
-                      }
-                    : null
-                }
-                setValue={(selectedDoctor) => {
-                  if (selectedDoctor === 0) {
-                    setSelectedDoctor("all");
-                  } else {
-                    const doctor = allDoctors.data.find(
-                      (doc) => doc._id === selectedDoctor
-                    );
-                    setSelectedDoctor(doctor?._id);
-                  }
-                }}
-                placeholder="Select Doctor"
-              />
-            </div>
-          </div>
-        )}
-        <Fullcalendar
-          ref={calendarRef}
-          plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-          initialView="dayGridMonth"
-          headerToolbar={{
-            start: "today prev,next",
-            center: "title",
-            end: "dayGridMonth,timeGridWeek,timeGridDay",
-          }}
-          height={"90vh"}
-          events={events}
-          editable={user?.role === "admin" || user?.role === "secretary"}
-          droppable={user?.role === "admin" || user?.role === "secretary"}
-          selectable
-          slotDuration="00:10:00"
-          slotMinTime="08:00:00"
-          slotMaxTime="18:00:00"
-          slotLabelInterval={{ hours: 1 }}
-          eventContent={(e) => {
-            return (
-              <div
-                className={styles.eventContent}
-                onClick={() => {
-                  router.push(`/patients/${e.event?.extendedProps.patient?._id}`);
-                }}
-                onContextMenu={(i) => {
-                  i.preventDefault();
-                  setIsSelected(e.event);
-                  // setTimeout(() => {
-                  //   setIsSelected({});
-                  // }, 20000);
-                }}
+              <button
+                onClick={() => setStatusModal(true)}
+                className="btn btn-primary mb-3 w-50"
+                ref={statusRef}
               >
-                <h1>{e.timeText}</h1>
-                {(user?.role === "admin" ||
-                  user?.role === "secretary" ||
-                  user?.role === "doctor") && (
-                  <p>
-                    Doctor: {e?.event?.extendedProps?.doctor?.firstName}{" "}
-                    {e?.event?.extendedProps?.doctor?.lastName}
-                  </p>
-                )}
+                Update Status
+              </button>
+              <button
+                onClick={removeAppointment}
+                className="btn btn-primary mb-3 w-50"
+                ref={deleteRef}
+              >
+                Delete Appointment
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => setAppointmentModal(true)}
+              className="btn btn-primary mb-3 w-50"
+            >
+              Create Appointment
+            </button>
+          )}
+          <div className={styles.dropdown}>
+            <Dropdown
+              values={[
+                {
+                  value: 0,
+                  label: "All",
+                },
+                ...allDoctors.data.map((doctor) => ({
+                  value: doctor?._id,
+                  label: `${doctor?.firstName} ${doctor?.lastName}`,
+                })),
+              ]}
+              value={
+                selectedDoctor === "all" || selectedDoctor === 0
+                  ? {
+                      value: 0,
+                      label: "All",
+                    }
+                  : selectedDoctor
+                  ? {
+                      value: selectedDoctor._id,
+                      label:
+                        allDoctors.data.find(
+                          (doctor) => doctor?._id === selectedDoctor
+                        )?.firstName +
+                        " " +
+                        allDoctors.data.find(
+                          (doctor) => doctor?._id === selectedDoctor
+                        )?.lastName,
+                    }
+                  : null
+              }
+              setValue={(selectedDoctor) => {
+                if (selectedDoctor === 0) {
+                  setSelectedDoctor("all");
+                } else {
+                  const doctor = allDoctors.data.find(
+                    (doc) => doc._id === selectedDoctor
+                  );
+                  setSelectedDoctor(doctor?._id);
+                }
+              }}
+              placeholder="Select Doctor"
+            />
+          </div>
+        </div>
+      )}
+      <Fullcalendar
+        ref={calendarRef}
+        plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+        initialView="dayGridMonth"
+        headerToolbar={{
+          start: "today prev,next",
+          center: "title",
+          end: "dayGridMonth,timeGridWeek,timeGridDay",
+        }}
+        height={"90vh"}
+        events={events}
+        editable={user?.role === "admin" || user?.role === "secretary"}
+        droppable={user?.role === "admin" || user?.role === "secretary"}
+        selectable
+        slotDuration="00:10:00"
+        slotMinTime="08:00:00"
+        slotMaxTime="18:00:00"
+        slotLabelInterval={{ hours: 1 }}
+        eventContent={(e) => {
+          return (
+            <div
+              className={styles.eventContent}
+              onClick={() => {
+                router.push(`/patients/${e.event?.extendedProps.patient?._id}`);
+              }}
+              onContextMenu={(i) => {
+                i.preventDefault();
+                setIsSelected(e.event);
+                // setTimeout(() => {
+                //   setIsSelected({});
+                // }, 20000);
+              }}
+            >
+              <h1>{e.timeText}</h1>
+              {(user?.role === "admin" ||
+                user?.role === "secretary" ||
+                user?.role === "doctor") && (
                 <p>
-                  Patient: {e?.event?.extendedProps?.patient?.firstName}{" "}
-                  {e?.event?.extendedProps?.patient?.lastName}
+                  Doctor: {e?.event?.extendedProps?.doctor?.firstName}{" "}
+                  {e?.event?.extendedProps?.doctor?.lastName}
                 </p>
-                <p>Status: {e?.event?.extendedProps?.status}</p>
-                <p>{e.event?.extendedProps?.reason}</p>
-              </div>
-            );
-          }}
-          eventBorderColor={(info) => {
-            return info.event?.backgroundColor.toString();
-          }}
-          eventBackgroundColor={(info) => {
-            return info.event?.backgroundColor.toString();
-          }}
-          select={(info) => {
-            if (info.view.type === "dayGridMonth") {
-              calendarRef.current
-                .getApi()
-                .changeView("timeGridDay", info.start);
-              return;
-            }
-            if (user?.role === "doctor") return;
-            setSelectedSession(info);
-            setAppointmentModal(true);
-          }}
-          unselect={() => {
-            setSelectedSession({});
-          }}
-        />
-        <Modal
-          active={appointmentModal}
-          setActive={setAppointmentModal}
-          title={
-            isSelected?.extendedProps?._id
-              ? "Edit Appointment"
-              : "Create Appointment"
+              )}
+              <p>
+                Patient: {e?.event?.extendedProps?.patient?.firstName}{" "}
+                {e?.event?.extendedProps?.patient?.lastName}
+              </p>
+              <p>Status: {e?.event?.extendedProps?.status}</p>
+              <p>{e.event?.extendedProps?.reason}</p>
+            </div>
+          );
+        }}
+        eventBorderColor={(info) => {
+          return info.event?.backgroundColor.toString();
+        }}
+        eventBackgroundColor={(info) => {
+          return info.event?.backgroundColor.toString();
+        }}
+        select={(info) => {
+          if (info.view.type === "dayGridMonth") {
+            calendarRef.current.getApi().changeView("timeGridDay", info.start);
+            return;
           }
-          children={
-            <CreateAppointmentModal
-              active={appointmentModal}
-              setActive={setAppointmentModal}
-              selectedAppointment={isSelected?.extendedProps}
-              appointmentId={isSelected?.extendedProps?._id}
-              appointmentRange={{
-                start: selectedSession.startStr
-                  ? selectedSession.startStr
-                  : isSelected.startStr,
-                end: selectedSession.endStr
-                  ? selectedSession.endStr
-                  : isSelected.endStr,
-              }}
-            />
-          }
-        />
-        <Modal
-          active={modal}
-          setActive={setModal}
-          title="Create User"
-          children={<CreateUserModal open={modal} setOpen={setModal} />}
-        />
-        <Modal
-          active={statusModal}
-          setActive={setStatusModal}
-          title="Update Status"
-          children={
-            <AppointmentStatusModal
-              active={statusModal}
-              setActive={setStatusModal}
-              selectedAppointment={isSelected?.extendedProps}
-              appointmentId={isSelected?.extendedProps?._id}
-              appointmentRange={{
-                start: isSelected.startStr,
-                end: isSelected.endStr,
-              }}
-            />
-          }
-        />
-      </main>
-    );
+          if (user?.role === "doctor") return;
+          setSelectedSession(info);
+          setAppointmentModal(true);
+        }}
+        unselect={() => {
+          setSelectedSession({});
+        }}
+      />
+      <Modal
+        active={appointmentModal}
+        setActive={setAppointmentModal}
+        title={
+          isSelected?.extendedProps?._id
+            ? "Edit Appointment"
+            : "Create Appointment"
+        }
+        children={
+          <CreateAppointmentModal
+            active={appointmentModal}
+            setActive={setAppointmentModal}
+            selectedAppointment={isSelected?.extendedProps}
+            appointmentId={isSelected?.extendedProps?._id}
+            appointmentRange={{
+              start: selectedSession.startStr
+                ? selectedSession.startStr
+                : isSelected.startStr,
+              end: selectedSession.endStr
+                ? selectedSession.endStr
+                : isSelected.endStr,
+            }}
+          />
+        }
+      />
+      <Modal
+        active={modal}
+        setActive={setModal}
+        title="Create User"
+        children={<CreateUserModal open={modal} setOpen={setModal} />}
+      />
+      <Modal
+        active={statusModal}
+        setActive={setStatusModal}
+        title="Update Status"
+        children={
+          <AppointmentStatusModal
+            active={statusModal}
+            setActive={setStatusModal}
+            selectedAppointment={isSelected?.extendedProps}
+            appointmentId={isSelected?.extendedProps?._id}
+            appointmentRange={{
+              start: isSelected.startStr,
+              end: isSelected.endStr,
+            }}
+          />
+        }
+      />
+    </main>
+  );
 }
