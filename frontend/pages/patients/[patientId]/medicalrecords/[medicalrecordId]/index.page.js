@@ -118,7 +118,7 @@ const MedicalRecordDetails = () => {
                     className="text-blue-500 hover:underline"
                     onClick={() =>
                       window.open(
-                        `http://localhost:3000/v1/${attachment}`,
+                        `${process.env.NEXT_PUBLIC_API_BASE_URL}/${attachment}`,
                         "_blank",
                         "noopener,noreferrer"
                       )
@@ -152,7 +152,7 @@ const MedicalRecordDetails = () => {
                     className="text-blue-500 hover:underline cursor-pointer hover:underline flex items-center"
                     onClick={() =>
                       window.open(
-                        `http://localhost:3000/v1/${prescription?.attachment}`,
+                        `${process.env.NEXT_PUBLIC_API_BASE_URL}/${prescription?.attachment}`,
                         "_blank",
                         "noopener,noreferrer"
                       )
