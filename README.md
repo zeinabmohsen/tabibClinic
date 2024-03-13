@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 # tabibClinic
-=======
-# Appointment-System
 
 ## Prerequisites
 
@@ -32,4 +29,3 @@ npm install
     ```bash
     npm run dev
     ```
->>>>>>> master
