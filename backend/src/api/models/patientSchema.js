@@ -21,6 +21,9 @@ const patientSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    secondphone: {
+      type: String,
+    },
     allergies: {
       type: [String],
       default: [],
