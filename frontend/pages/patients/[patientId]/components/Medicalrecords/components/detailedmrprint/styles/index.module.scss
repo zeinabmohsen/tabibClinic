@@ -1,0 +1,122 @@
+// medical records print styles
+.Container {
+  padding: 20px;
+  margin: 20px;
+  // page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  // background-color: rgb(204, 204, 204);
+  height: 100vh;
+  gap: 20px;
+
+
+  .date {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #0c6614;
+  }
+
+  .patientDetails {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    background-color: rgba(231, 231, 231, 0.548);
+    padding: 10px;
+    // border-radius: 10px;
+    gap: 15px;
+    flex-wrap: wrap;
+    height: 250px;
+    font-weight: 600;
+
+    .patientInfo {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #0c6614;
+    }
+
+    >div>h3 {
+      color: #0c6614;
+    }
+
+    .patientName {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+  }
+
+  .emergency {
+    display: flex;
+    flex-direction: column;
+
+
+    .doctorInfo {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.5rem;
+      font-weight: 600;
+      border-bottom: 1px solid red;
+      color: red;
+      padding-bottom: 15px;
+    }
+
+    .doctorDetails {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+      padding: 10px;
+      gap: 15px;
+      flex-wrap: wrap;
+      height: 150px;
+      font-weight: 600;
+
+      >div>h3 {
+        color: #0c6614;
+      }
+
+      .doctorName {
+        font-size: 1rem;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .medicalRecordData {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    >h3 {
+      color: #0c6614;
+      font-size: 1.5rem;
+      font-weight: 600;
+      border-bottom: 1px solid #0c6614;
+      margin-bottom: 10px;
+      padding-bottom: 15px;
+    }
+
+    .recordTitle {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .recordDescription {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+  }
+}

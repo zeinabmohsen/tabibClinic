@@ -1,0 +1,26 @@
+.logout {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    background-color: #26272b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  button:hover {
+    background-color: #ff0000;
+  }
+
+}

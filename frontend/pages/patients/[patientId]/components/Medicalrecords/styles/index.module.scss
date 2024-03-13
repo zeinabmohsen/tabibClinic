@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  .details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+    border: 1px solid #E5E5E5;
+    border-radius: 0.5rem;
+    background-color: white;
+
+    .record {
+      display: flex;
+      gap: 1rem;
+      border: 1px solid #E5E5E5;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      flex-direction: column;
+
+      >div {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+       
+
+        >h1 {
+          font-weight: 600;
+        }
+      }
+
+      .notes {
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 60%;
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: #F5F5F5;
+      }
+    }
+
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+
+      >button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        background-color: #F5F5F5;
+        font-weight: 600;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #E5E5E5;
+        }
+      }
+    }
+  }
+}

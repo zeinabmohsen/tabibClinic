@@ -1,0 +1,119 @@
+.Container {
+  padding: 20px;
+  margin: 30px auto; 
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  height: 148mm; /* A5 height */
+  width: 100%; 
+  gap: 20px;
+
+  @media print {
+    margin: 20;
+    padding: 0;
+  }
+
+  @page {
+    size: A5;
+  }
+
+  .date {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #0c6614;
+  }
+
+  .patientDetails {
+    background-color: rgba(231, 231, 231, 0.5);
+    padding: 15px;
+    margin-bottom: 10px;
+    width: 100%; // Full width
+
+    .patientInfo {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0c6614;
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      color: #0c6614;
+    }
+
+    .patientName {
+      font-size: 1.1rem;
+      margin-top: 8px;
+      color: #333;
+    }
+  }
+
+  .emergency {
+    background-color: rgba(255, 0, 0, 0.1);
+    padding: 15px;
+    width: 100%; // Full width
+
+    .doctorInfo {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #c00;
+      border-bottom: 1px solid #c00;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .doctorDetails {
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        color: #0c6614;
+      }
+
+      .doctorName {
+        font-size: 1.1rem;
+        margin-top: 8px;
+        color: #333;
+      }
+    }
+  }
+
+  .medicalRecordData {
+    background-color: #f5f5f5;
+    padding: 15px;
+    width: 100%; 
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #0c6614;
+      border-bottom: 1px solid #0c6614;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+
+    .recordTitle {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .recordDescription {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 10px;
+    }
+  }
+}
