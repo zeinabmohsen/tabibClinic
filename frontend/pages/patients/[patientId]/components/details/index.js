@@ -30,6 +30,7 @@ const Patients = () => {
       lastName: "",
       email: "",
       phone: "",
+      secondPhone: "",
       dob: "",
       city: "",
       allergies: "",
@@ -73,7 +74,7 @@ const Patients = () => {
           </div>
         ) : (
           <div className={styles.actions}>
-            <div
+            {/* <div
               className={styles.btn}
               onClick={() => {
                 setAddActive(true);
@@ -81,7 +82,7 @@ const Patients = () => {
             >
               <FontAwesomeIcon icon={faPlusSquare} />
               <p>Add</p>
-            </div>
+            </div> */}
             <div
               className={styles.btn}
               onClick={() => {
@@ -182,6 +183,28 @@ const Patients = () => {
                 />
               ) : (
                 selectedPatient?.phone
+              )}
+            </p>
+          </div>
+          <div className={styles.row}>
+            <h4>Secondary Phone Number</h4>
+            <p>
+              {addActive || editActive ? (
+                <Input
+                  type="text"
+                  value={
+                    newPatientData.secondPhone || selectedPatient?.secondPhone
+                  }
+                  placeholder=""
+                  setValue={(value) => {
+                    setNewPatientData((prev) => ({
+                      ...prev,
+                      secondPhone: value,
+                    }));
+                  }}
+                />
+              ) : (
+                selectedPatient?.secondPhone
               )}
             </p>
           </div>

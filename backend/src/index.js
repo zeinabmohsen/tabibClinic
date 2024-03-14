@@ -26,16 +26,11 @@ app.use(
 mongoose.connect();
 
 app.use(passport.initialize());
-// app.use(passport.session());
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (origin === "http://192.168.1.254:3001") {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
+      callback(null, true);
     },
     methods: "GET, POST, PUT, DELETE",
     credentials: true,

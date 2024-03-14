@@ -61,6 +61,8 @@ const userSchema = new mongoose.Schema(
     },
     feeRatio: {
       type: Number,
+      min: 0,
+      default: 0,
     },
     services: {
       type: [mongoose.Schema.Types.ObjectId],

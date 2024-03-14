@@ -148,7 +148,9 @@ const Medicalrecords = ({
             </div>
             <div className="flex items-center mb-4">
               <div className="mr-4">
-                <h2 className="text-xl font-semibold">Record #{index + 1}</h2>
+                <h2 className="text-xl font-semibold">
+                  Record # {data.length - index}
+                </h2>
                 <h3 className="text-gray-500">
                   {record?.date.toString().slice(0, 10)}
                 </h3>
@@ -197,10 +199,12 @@ const Medicalrecords = ({
         active={attachModal}
         setActive={setAttachModal}
         title={`Attach Medical Record`}
-        children={<AddAttachementModal 
-          selectedRecord={selectedRecord}
-          setAttachModal={setAttachModal}
-        />}
+        children={
+          <AddAttachementModal
+            selectedRecord={selectedRecord}
+            setAttachModal={setAttachModal}
+          />
+        }
       />
       <Modal
         active={invoiceModal}

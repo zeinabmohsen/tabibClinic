@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteAttachmentFromRecord,
   getMedicalRecordById,
   updateMedicalRecord,
 } from "../../../../../actions/MedicalRecordActions";
@@ -62,12 +63,7 @@ const MedicalRecordDetails = () => {
   }, [data]);
 
   const handleDeleteAttachment = (attachmentId) => {
-    setMedicalRecord({
-      ...medicalRecord,
-      attachments: medicalRecord.attachments.filter(
-        (attachment) => attachment._id !== attachmentId
-      ),
-    });
+    dispatch(deleteAttachmentFromRecord(medicalrecordId, attachmentId));
   };
 
   const handleDeletePrescription = useCallback(
@@ -115,20 +111,27 @@ const MedicalRecordDetails = () => {
                 {medicalRecord?.attachments.map((attachment) => (
                   <li
                     key={attachment._id}
-                    className="text-blue-500 hover:underline"
+                    className="text-blue-500 hover:underline cursor-pointer hover:underline flex items-center"
                     onClick={() =>
                       window.open(
-                        `${process.env.NEXT_PUBLIC_API_BASE_URL}/${attachment}`,
+                        `${process.env.NEXT_PUBLIC_API_BASE_URL}/${
+                          attachment?.url ? attachment.url : attachment
+                        }`,
                         "_blank",
                         "noopener,noreferrer"
                       )
                     }
                   >
-                    {attachment.split("\\")[1]}
+                    {attachment.url
+                      ? attachment?.url?.split("\\")[1]
+                      : "Attachment"}{" "}
                     {isEditing && (
                       <div
                         className="ml-2 text-red-500 hover:text-red-700"
-                        onClick={() => handleDeleteAttachment(attachment._id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteAttachment(attachment._id);
+                        }}
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </div>
@@ -143,7 +146,6 @@ const MedicalRecordDetails = () => {
             <div>
               <h3 className="text-lg font-semibold text-gray-800">
                 Prescriptions:
-                {console.log(medicalRecord.prescriptions)}
               </h3>
               <ul className="list-disc pl-6">
                 {medicalRecord?.prescriptions?.map((prescription, index) => (

@@ -80,6 +80,7 @@ const createAppointment = async (req, res) => {
       dob,
       city,
       gender,
+      secondPhone,
     } = req.body;
 
     let existingPatient;
@@ -109,6 +110,7 @@ const createAppointment = async (req, res) => {
         dob,
         city,
         gender,
+        secondPhone
       };
       const newPatientInstance = await new Patient(newPatientData);
       existingPatient = await newPatientInstance.save();
@@ -243,6 +245,7 @@ const updateAppointment = async (req, res) => {
       lastName,
       email,
       phone,
+      secondPhone,
       dob,
       city,
       gender,
@@ -283,6 +286,7 @@ const updateAppointment = async (req, res) => {
         lastName,
         email,
         phone,
+        secondPhone,
         dob,
         city,
         gender,

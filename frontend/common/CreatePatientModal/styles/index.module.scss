@@ -1,6 +1,11 @@
-.dobG {
+.container {
   display: flex;
-  gap: 0.2rem;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+
 
   .gender {
     display: flex;

@@ -49,6 +49,7 @@ export default function zCreateAppointmentModal({
     phone: "",
     dob: "",
     city: "",
+    secondPhone: "",
   });
 
   const create = useCallback(async () => {
@@ -316,9 +317,8 @@ export default function zCreateAppointmentModal({
           />
         </div>
       ) : (
-        <div className="flex flex-col gap-4">
+        <div className={styles.newPatient}>
           <div className="flex flex-col gap-4">
-            <div className="flex gap-1">
               <div className="flex flex-col gap-1">
                 <label htmlFor="title">First Name</label>
                 <Input
@@ -351,8 +351,6 @@ export default function zCreateAppointmentModal({
                   required
                 />
               </div>
-            </div>
-            <div className="flex gap-1">
               <div className="flex flex-col gap-1">
                 <label htmlFor="title">Email</label>
                 <Input
@@ -385,7 +383,22 @@ export default function zCreateAppointmentModal({
                   required
                 />
               </div>
-            </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="title">Secondary Phone</label>
+                <Input
+                  type="number"
+                  id="title"
+                  className="border border-gray-300 rounded-lg"
+                  value={newPatientData.secondPhone}
+                  setValue={(value) => {
+                    setNewPatientData((prev) => ({
+                      ...prev,
+                      secondPhone: value,
+                    }));
+                  }}
+                  required
+                />
+              </div>
             <div className={styles.dobG}>
               <div className="flex flex-col gap-1">
                 <div className={styles.row}>

@@ -9,6 +9,7 @@ export const ACTIONS = {
   GET_MEDICAL_RECORDS_BY_PATIENT_ID: "/record/patient/:patientId",
   ADD_PRESCRIPTION_T0_RECORD: "/record/:medicalRecordId/add-prescriptions",
   ADD_ATTACHMENT_TO_RECORD: "/record/:medicalRecordId/attachment",
+  DELETE_ATTACHMENT_FROM_RECORD: "/record/:medicalRecordId/attachment/:attachmentId",
 };
 
 export const createMedicalRecord =
@@ -97,6 +98,21 @@ export const addAttachmentToRecord =
       dispatch({ type: ACTIONS.ADD_PRESCRIPTION_T0_RECORD, data });
     } catch (error) {
       toast.error("Error while adding attachment to medical record");
+      console.log(error);
+    }
+  };
+
+export const deleteAttachmentFromRecord =
+  (medicalRecordId, attachmentId) => async (dispatch) => {
+    try {
+      console.log(medicalRecordId, attachmentId);
+      const { data } = await axios.delete(
+        `/record/${medicalRecordId}/attachment/${attachmentId}`
+      );
+      toast.success("Attachment deleted from medical record successfully");
+      dispatch({ type: ACTIONS.DELETE_ATTACHMENT_FROM_RECORD, data });
+    } catch (error) {
+      toast.error("Error while deleting attachment from medical record");
       console.log(error);
     }
   };

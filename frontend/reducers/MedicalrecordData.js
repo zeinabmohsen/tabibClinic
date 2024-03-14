@@ -40,6 +40,12 @@ const MedicalRecordData = (state = initialState, { type, data }) => {
         loaded: true,
         selectedMedicalRecord: data,
       };
+    case ACTIONS.DELETE_ATTACHMENT_FROM_RECORD:
+      return {
+        ...state,
+        loaded: true,
+        selectedMedicalRecord: data,
+      };
     default:
       return state;
   }

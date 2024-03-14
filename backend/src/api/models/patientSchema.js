@@ -21,7 +21,7 @@ const patientSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    secondphone: {
+    secondPhone: {
       type: String,
     },
     allergies: {
@@ -79,6 +79,7 @@ patientSchema.method({
       "dob",
       "gender",
       "phone",
+      "secondPhone", 
       "allergies",
       "city",
       "doctor",

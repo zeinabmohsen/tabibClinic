@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { v4: uuidv4 } = require("uuid");
 
 const medicalRecordSchema = new mongoose.Schema(
   {
@@ -29,9 +30,13 @@ const medicalRecordSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    attachments: {
-      type: [String],
-    },
+    attachments: [
+      {
+        url: {
+          type: String,
+        },
+      },
+    ],
     description: {
       type: String,
     },

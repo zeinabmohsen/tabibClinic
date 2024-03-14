@@ -58,6 +58,9 @@ const PatientsTable = () => {
               Phone
             </th>
             <th scope="col" className="px-6 py-3">
+              Secondary Phone
+            </th>
+            <th scope="col" className="px-6 py-3">
               Gender
             </th>
             <th scope="col" className="px-6 py-3">
@@ -85,6 +88,7 @@ const PatientsTable = () => {
                 </td>
                 <td className="px-6 py-4">{patient?.email}</td>
                 <td className="px-6 py-4">{patient?.phone}</td>
+                <td className="px-6 py-4">{patient?.secondPhone}</td>
                 <td className="px-6 py-4">{patient?.gender}</td>
                 <td className="px-6 py-4">{patient?.city}</td>
                 <td className="px-6 py-4"></td>

@@ -17,6 +17,7 @@ const {
   addPrescriptionsToMedicalRecord,
   uploadPrescription,
   uploadAttachmentToMedicalRecord,
+  deleteAttachment,
 } = require("../../controllers/medicalRecord");
 
 // Route for creating a medical record -
@@ -57,5 +58,8 @@ router.put(
 
 // Route for uploading an attachment to a medical record -
 router.put("/:medicalRecordId/attachment", uploadAttachmentToMedicalRecord);
+
+// Route for deleting attachment
+router.delete("/:medicalRecordId/attachment/:attachmentId", deleteAttachment);
 
 module.exports = router;

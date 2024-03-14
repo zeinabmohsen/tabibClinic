@@ -4,6 +4,7 @@ const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 const mongoose = require("mongoose");
+const fs = require("fs");
 
 // Multer storage configuration for attachments
 const attachmentStorage = multer.diskStorage({
@@ -156,7 +157,7 @@ const uploadAttachmentToMedicalRecord = async (req, res) => {
     // add attachment to the medical record
     const updatedMedicalRecord = await MedicalRecord.findByIdAndUpdate(
       medicalRecordId,
-      { $push: { attachments: attachment } },
+      { $push: { attachments: { url: attachment } } },
       { new: true }
     );
 
@@ -265,6 +266,40 @@ const getMedicalRecordByPatientId = async (req, res) => {
   }
 };
 
+const deleteAttachment = async (req, res) => {
+  try {
+    const { medicalRecordId, attachmentId } = req.params;
+
+    const medicalRecord = await MedicalRecord.findById(medicalRecordId);
+    if (!medicalRecord) {
+      return res.status(404).json({ message: "Medical record not found" });
+    }
+    // Delete the attachment file from the server
+    const attachment = medicalRecord.attachments.find(
+      (attachment) => attachment._id.toString() === attachmentId
+    );
+
+    if (!attachment) {
+      return res.status(404).json({ message: "Attachment not found" });
+    }
+    // Remove the attachment from the uploads folder
+    const filePath = path.join("", attachment.url);
+    fs.unlinkSync(filePath);
+
+    const updatedAttachments = medicalRecord.attachments.filter(
+      (attachment) => attachment._id.toString() !== attachmentId
+    );
+
+    medicalRecord.attachments = updatedAttachments;
+    await medicalRecord.save();
+
+    res.status(200).json(medicalRecord);
+  } catch (error) {
+    console.error("Error deleting attachment:", error);
+    res.status(500).json({ message: "Failed to delete attachment" });
+  }
+};
+
 module.exports = {
   createMedicalRecord,
   uploadAttachment,
@@ -276,4 +311,5 @@ module.exports = {
   addFeesToMedicalRecord,
   addPrescriptionsToMedicalRecord,
   uploadAttachmentToMedicalRecord,
+  deleteAttachment,
 };
