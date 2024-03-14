@@ -104,6 +104,7 @@ export default function zCreateAppointmentModal({
         create();
         setActive(false);
       }}
+      className={styles.container}
     >
       <h3 className="mb-3 font-semibold">Appointment Details</h3>
       <div className="mb-3">
