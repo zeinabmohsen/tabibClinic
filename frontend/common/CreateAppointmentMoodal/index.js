@@ -320,86 +320,86 @@ export default function zCreateAppointmentModal({
       ) : (
         <div className={styles.newPatient}>
           <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-1">
-                <label htmlFor="title">First Name</label>
-                <Input
-                  type="text"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={newPatientData.firstName}
-                  setValue={(value) => {
-                    setNewPatientData((prev) => ({
-                      ...prev,
-                      firstName: value,
-                    }));
-                  }}
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="title">Last Name</label>
-                <Input
-                  type="text"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={newPatientData.lastName}
-                  setValue={(value) => {
-                    setNewPatientData((prev) => ({
-                      ...prev,
-                      lastName: value,
-                    }));
-                  }}
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="title">Email</label>
-                <Input
-                  type="text"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={newPatientData.email}
-                  setValue={(value) => {
-                    setNewPatientData((prev) => ({
-                      ...prev,
-                      email: value,
-                    }));
-                  }}
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="title">Phone</label>
-                <Input
-                  type="number"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={newPatientData.phone}
-                  setValue={(value) => {
-                    setNewPatientData((prev) => ({
-                      ...prev,
-                      phone: value,
-                    }));
-                  }}
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="title">Secondary Phone</label>
-                <Input
-                  type="number"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={newPatientData.secondPhone}
-                  setValue={(value) => {
-                    setNewPatientData((prev) => ({
-                      ...prev,
-                      secondPhone: value,
-                    }));
-                  }}
-                  required
-                />
-              </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="title">First Name</label>
+              <Input
+                type="text"
+                id="title"
+                className="border border-gray-300 rounded-lg"
+                value={newPatientData.firstName}
+                setValue={(value) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    firstName: value,
+                  }));
+                }}
+                required
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="title">Last Name</label>
+              <Input
+                type="text"
+                id="title"
+                className="border border-gray-300 rounded-lg"
+                value={newPatientData.lastName}
+                setValue={(value) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    lastName: value,
+                  }));
+                }}
+                required
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="title">Email</label>
+              <Input
+                type="text"
+                id="title"
+                className="border border-gray-300 rounded-lg"
+                value={newPatientData.email}
+                setValue={(value) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    email: value,
+                  }));
+                }}
+                required
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="title">Phone</label>
+              <Input
+                type="number"
+                id="title"
+                className="border border-gray-300 rounded-lg"
+                value={newPatientData.phone}
+                setValue={(value) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    phone: value,
+                  }));
+                }}
+                required
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="title">Secondary Phone</label>
+              <Input
+                type="number"
+                id="title"
+                className="border border-gray-300 rounded-lg"
+                value={newPatientData.secondPhone}
+                setValue={(value) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    secondPhone: value,
+                  }));
+                }}
+                required
+              />
+            </div>
             <div className={styles.dobG}>
               <div className="flex flex-col gap-1">
                 <div className={styles.row}>
