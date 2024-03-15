@@ -73,11 +73,8 @@ const createMedicalRecord = async (req, res) => {
     await newMedicalRecord.save();
 
     console.log("Medical record created successfully:", newMedicalRecord);
-
-    res.status(201).json({
-      message: "Medical record created successfully",
-      medicalRecord: newMedicalRecord,
-    });
+    
+    res.status(201).json(newMedicalRecord);
   } catch (error) {
     console.error("Error creating medical record:", error);
     res.status(500).json({ message: "Failed to create medical record" });
