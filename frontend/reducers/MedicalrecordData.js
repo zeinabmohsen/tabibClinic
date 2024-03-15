@@ -26,7 +26,7 @@ const MedicalRecordData = (state = initialState, { type, data }) => {
       return {
         ...state,
         loaded: true,
-        selectedMedicalRecord: data,
+        patientMedicalRecords: [...state.patientMedicalRecords, data],
       };
     case ACTIONS.UPDATE_MEDICAL_RECORD:
       return {
