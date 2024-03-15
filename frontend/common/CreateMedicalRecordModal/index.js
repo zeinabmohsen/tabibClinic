@@ -54,12 +54,21 @@ const CreateMedicalRecordModal = ({ setMRModal = () => {} }) => {
         />
       </div>
       <div className="form-group mb-4">
-        <label htmlFor="amount">Description:</label>
-        <Input
-          value={mrData.description}
-          setValue={(value) => setMRData({ ...mrData, description: value })}
-        />
-      </div>
+  <label htmlFor="description" className="block text-sm font-medium text-gray-700 ">
+    Description:
+  </label>
+  <textarea
+    id="description"
+    className="form-textarea mt-1 block w-full border border-gray-300 rounded-md p-4 focus:border-none focus:ring-0 "
+    rows="4"
+    value={mrData.description}
+    onChange={(e) => setMRData({ ...mrData, description: e.target.value })}
+    placeholder="Enter description here..."
+  />
+</div>
+
+
+
       <button
         type="submit"
         className="mt-6 px-4 py-2 bg-indigo-900 text-white rounded hover:bg-indigo-800 focus:outline-none focus:bg-indigo-800 w-full"
