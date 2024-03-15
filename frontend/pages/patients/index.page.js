@@ -72,9 +72,6 @@ const PatientsTable = () => {
             <th scope="col" className="px-6 py-3">
               City
             </th>
-            <th scope="col" className="px-6 py-3">
-              Notes
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -92,13 +89,13 @@ const PatientsTable = () => {
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {patient?.firstName} {patient?.middleName} {patient?.lastName}
                 </td>
+                <td className="px-6 py-4">{patient?.motherName}</td>
                 <td className="px-6 py-4">{patient?.email}</td>
                 <td className="px-6 py-4">{patient?.phone}</td>
                 <td className="px-6 py-4">{patient?.secondPhone}</td>
                 <td className="px-6 py-4">{patient?.physicianName}</td>
                 <td className="px-6 py-4">{patient?.gender}</td>
                 <td className="px-6 py-4">{patient?.city}</td>
-                <td className="px-6 py-4"></td>
               </tr>
             ))}
         </tbody>
