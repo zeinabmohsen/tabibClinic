@@ -127,6 +127,15 @@ const Medicalrecords = ({
                 >
                   Attach
                 </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrescriptionModal(record._id);
+                  }}
+                  className="border border-black text-black font-bold py-1 px-2 rounded ml-2"
+                >
+                  Services
+                </button>
               </div>
               <div>
                 <input
@@ -165,7 +174,26 @@ const Medicalrecords = ({
                 )}
               </p>
             </div>
-            <hr className="my-4" />
+            <hr className="my-2" />
+            <div class="flex my-2">
+  <div class="inline-block rounded-full border border-black   font-bold px-2 py-1 mr-3">
+    <span class="text-black-700 text-sm font-semibold">Service 1</span>
+  </div>
+  <div class="inline-block rounded-full border border-black hover:bg-blue-700 text-white font-bold px-2 py-1 mr-3">
+    <span class="text-gray-700 text-sm font-semibold">Service 2</span>
+  </div>
+  <div class="inline-block rounded-full border border-black hover:bg-blue-700 text-white font-bold px-2 py-1 mr-3">
+    <span class="text-gray-700 text-sm font-semibold">Service 3</span>
+  </div>
+  <div class="inline-block rounded-full border border-black hover:bg-blue-700 text-white font-bold px-2 py-1 mr-3">
+    <span class="text-gray-700 text-sm font-semibold">Service 4</span>
+  </div>
+  <div class="inline-block rounded-full border border-black hover:bg-blue-700 text-white font-bold px-2 py-1 mr-3">
+    <span class="text-gray-700 text-sm font-semibold">Service 5</span>
+  </div>
+</div>
+
+
             <div className="flex items-center justify-between">
               <button className="border border-black text-black font-bold py-1 px-2 rounded mr-2">
                 {record?.fees ? `Fees: ${record?.fees}` : "No fees associated"}

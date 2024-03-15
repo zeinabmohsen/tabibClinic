@@ -24,6 +24,7 @@ function AddPrescriptionForm() {
   };
 
   const handlePrint = () => {
+  
     // Create a printable document
     const printDocument = `
       <!DOCTYPE html>
@@ -32,82 +33,73 @@ function AddPrescriptionForm() {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Prescription Form</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
         <style>
           body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial Narrow', sans-serif;
             margin: 0;
             padding: 0;
-          }
-  
-          @page {
-            size: A5;
-            margin: 20mm; /* Set margin for A5 paper */
-          }
-  
-          .header-space {
-            height: 130px; 
-          }
-  
-          .footer-space {
-            height: 20px; 
+            background-color: #fff;
+            color: #333;
           }
   
           .container {
             max-width: 420px; /* A5 width */
             margin: 0 auto;
             padding: 20px;
+            background-color: #f9f9f9;
           }
   
-          .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 1px;
+          h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
           }
   
-          .credentials {
-            text-align: right;
-          }
-  
-          .section {
+          table {
+            width: 100%;
+            border-collapse: collapse;
             margin-bottom: 20px;
           }
   
-          .med-item {
+          th, td {
+            padding: 10px;
             border-bottom: 1px solid #ddd;
-            padding-bottom: 1px;
           }
-
   
-          .signature {
-            padding-top: 20px;
+          th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+          }
+  
+          td {
+            font-size: 14px;
           }
         </style>
       </head>
       <body>
-        <div class="header-space"></div>
         <div class="container">
-          <div class="header">
-          </div>
-          <div class="section">
-            <ul class="med-list">
+          <h2>Prescription </h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Medication</th>
+                <th>Dosage</th>
+                <th>Instructions</th>
+              </tr>
+            </thead>
+            <tbody>
               ${prescriptions
                 .map(
                   (medication, index) => `
-                    <li class="med-item">
-                      <strong>Medication:</strong> ${medication.medication}<br />
-                      <strong>Dosage:</strong> ${medication.dosage}<br />
-                      <strong>Instructions:</strong> ${medication.instructions}
-                    </li>`
+                    <tr>
+                      <td>${medication.medication}</td>
+                      <td>${medication.dosage}</td>
+                      <td>${medication.instructions}</td>
+                    </tr>`
                 )
                 .join("")}
-            </ul>
-          </div>
-          <div class="footer-space"></div>
-          <div class="signature">
-          </div>
+            </tbody>
+          </table>
         </div>
       </body>
       </html>
@@ -121,6 +113,9 @@ function AddPrescriptionForm() {
     // Directly open print dialog
     win.print();
   };
+  
+
+  
   
 
   return (

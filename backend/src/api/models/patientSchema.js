@@ -10,6 +10,12 @@ const patientSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    middleName: {
+      type: String,
+    },
+    MotherName: {
+      type: String,
+    },
     dob: {
       type: Date,
     },
@@ -32,6 +38,12 @@ const patientSchema = new mongoose.Schema(
       type: String,
     },
     doctors: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User", 
+      },
+    ],
+    referringPhysicians: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

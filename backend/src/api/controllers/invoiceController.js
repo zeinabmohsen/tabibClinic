@@ -378,7 +378,7 @@ const makeClinicStatement = async (req, res) => {
       clinicAmountTotal += clinicAmount;
     });
 
-    res.status(200).json({ clinicStatement, clinicAmountTotal,  invoices});
+    res.status(200).json({ clinicStatement, clinicAmountTotal, invoices });
   } catch (error) {
     console.error("Error generating clinic statement:", error);
     res.status(500).json({ message: "Server Error" });
