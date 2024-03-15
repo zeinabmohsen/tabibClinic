@@ -10,6 +10,12 @@ const patientSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    middleName: {
+      type: String,
+    },
+    MotherName: {
+      type: String,
+    },
     dob: {
       type: Date,
     },
