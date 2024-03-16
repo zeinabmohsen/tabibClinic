@@ -46,6 +46,9 @@ const PatientsTable = () => {
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">
+              File Number
+            </th>
+            <th scope="col" className="px-6 py-3">
               Patient
             </th>
             <th scope="col" className="px-6 py-3">
@@ -83,6 +86,9 @@ const PatientsTable = () => {
                 `}
                 onClick={() => router.push(`/patients/${patient?._id}`)}
               >
+                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {patient?._id}
+                </td>
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {patient?.firstName} {patient?.middleName} {patient?.lastName}
                 </td>
