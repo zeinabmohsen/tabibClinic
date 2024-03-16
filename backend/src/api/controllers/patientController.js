@@ -13,6 +13,7 @@ const createPatient = async (req, res) => {
       secondPhone,
       middleName,
       doctors,
+      referringPhysicians,
       motherName,
       insurance,
       weight,
@@ -37,6 +38,15 @@ const createPatient = async (req, res) => {
       surgicalHistory,
       pastMedicalHistory,
     });
+
+    if (referringPhysicians) {
+      const referringPhysiciansArray = referringPhysicians.split(",");
+      for (let i = 0; i < referringPhysiciansArray.length; i++) {
+        newPatient.referringPhysicians.push(referringPhysiciansArray[i]);
+      }
+    }
+
+    await newPatient.save();
 
     return res.status(201).json({
       ...newPatient.transform(),

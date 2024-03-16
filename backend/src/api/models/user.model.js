@@ -112,6 +112,8 @@ userSchema.method({
       "specialty",
       "feeRatio",
       "services",
+      "assignedPatients",
+      "referringPatients",
       "createdAt",
     ];
 
