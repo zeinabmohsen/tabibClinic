@@ -43,15 +43,14 @@ const createService = async (req, res) => {
     // Save the updated doctor object
     await doctor.save();
 
-    res.status(201).json({ data: service.transform() });
+    const transformedService = service.transform();
+
+    res.status(201).json({ ...transformedService });
   } catch (error) {
     console.error("Error creating service:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };
-
-
-
 
 // Update an existing service for the logged-in doctor
 const updateService = async (req, res) => {
@@ -60,7 +59,7 @@ const updateService = async (req, res) => {
     const { name, price } = req.body;
 
     const doctorId = req.user._id;
-    
+
     // Find the doctor in the database
     const doctor = await User.findById(doctorId);
     if (!doctor || doctor.role !== "doctor") {
@@ -69,15 +68,17 @@ const updateService = async (req, res) => {
 
     // Find the service to update
     const service = await Service.get(serviceId);
-    
+
     // Check if the service exists
     if (!service) {
       return res.status(404).json({ message: "Service not found" });
     }
-    
+
     // Check if the logged-in doctor is authorized to update the service
     if (service.doctor.toString() !== doctorId.toString()) {
-      return res.status(403).json({ message: "You are not authorized to update this service" });
+      return res
+        .status(403)
+        .json({ message: "You are not authorized to update this service" });
     }
 
     // Update the service
@@ -95,7 +96,6 @@ const updateService = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
-
 
 // Delete a service for the logged-in doctor
 const deleteService = async (req, res) => {
@@ -138,21 +138,19 @@ const getServicesByDoctorId = async (req, res) => {
     const { doctorId } = req.params;
 
     // Find the doctor in the database
-    const doctor = await User.findById(doctorId).populate("services");
+    const doctor = await User.findById(doctorId);
     if (!doctor || doctor.role !== "doctor") {
       return res.status(404).json({ message: "Doctor not found" });
     }
 
-    res
-      .status(200)
-      .json({ data: doctor.services.map((service) => service.transform()) });
+    const services = await Service.find({ doctor: doctorId });
+    const transformedServices = services.map((service) => service.transform());
+    res.status(200).json([...transformedServices]);
   } catch (error) {
     console.error("Error getting services:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };
-
-
 
 module.exports = {
   createService,

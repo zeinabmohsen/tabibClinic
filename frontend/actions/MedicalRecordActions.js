@@ -9,16 +9,18 @@ export const ACTIONS = {
   GET_MEDICAL_RECORDS_BY_PATIENT_ID: "/record/patient/:patientId",
   ADD_PRESCRIPTION_T0_RECORD: "/record/:medicalRecordId/add-prescriptions",
   ADD_ATTACHMENT_TO_RECORD: "/record/:medicalRecordId/attachment",
-  DELETE_ATTACHMENT_FROM_RECORD: "/record/:medicalRecordId/attachment/:attachmentId",
+  DELETE_ATTACHMENT_FROM_RECORD:
+    "/record/:medicalRecordId/attachment/:attachmentId",
 };
 
 export const createMedicalRecord =
-  (patientId, { title, description }) =>
+  (patientId, { title, description, doctor }) =>
   async (dispatch) => {
     try {
       const { data } = await axios.post(`/record/${patientId}`, {
         title,
         description,
+        doctor,
       });
 
       toast.success("Medical record created successfully");
@@ -29,13 +31,14 @@ export const createMedicalRecord =
   };
 
 export const updateMedicalRecord =
-  (id, { title, description, fees }) =>
+  (id, { title, description, fees, services }) =>
   async (dispatch) => {
     try {
       const { data } = await axios.put(`/record/${id}`, {
         title,
         description,
         fees,
+        services,
       });
       toast.success("Medical record updated successfully");
       dispatch({ type: ACTIONS.UPDATE_MEDICAL_RECORD, data });

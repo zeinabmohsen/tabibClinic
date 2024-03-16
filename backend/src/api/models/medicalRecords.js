@@ -40,6 +40,12 @@ const medicalRecordSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    services: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Service",
+      },
+    ],
   },
   {
     timestamps: true,

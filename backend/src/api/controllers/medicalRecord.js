@@ -59,21 +59,20 @@ const uploadPrescription = multer({
 
 const createMedicalRecord = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, doctor } = req.body;
     const { patientId } = req.params;
 
     const medicalRecordData = {
       patient: patientId,
       title,
       description,
+      doctor,
       date: Date.now(),
     };
 
     const newMedicalRecord = new MedicalRecord(medicalRecordData);
     await newMedicalRecord.save();
 
-    console.log("Medical record created successfully:", newMedicalRecord);
-    
     res.status(201).json(newMedicalRecord);
   } catch (error) {
     console.error("Error creating medical record:", error);
@@ -190,11 +189,11 @@ const deleteMedicalRecord = async (req, res) => {
 const updateMedicalRecord = async (req, res) => {
   try {
     const { medicalRecordId } = req.params;
-    const { patient, title, description, fees } = req.body;
+    const { patient, title, description, fees, services } = req.body;
 
     const updatedRecord = await MedicalRecord.findByIdAndUpdate(
       medicalRecordId,
-      { patient, title, description, fees },
+      { patient, title, description, fees, services },
       { new: true }
     );
 
@@ -204,7 +203,7 @@ const updateMedicalRecord = async (req, res) => {
 
     res.status(200).json(updatedRecord);
   } catch (error) {
-    res.status(500).json({ message: "Failed to update medical record" });
+    res.status(500).json(error);
   }
 };
 
@@ -214,7 +213,9 @@ const getMedicalRecordById = async (req, res) => {
     const { medicalRecordId } = req.params;
 
     // Find the medical record by its ID
-    const medicalRecord = await MedicalRecord.findById(medicalRecordId);
+    const medicalRecord = await MedicalRecord.findById(
+      medicalRecordId
+    ).populate("prescriptions patient doctor");
 
     if (!medicalRecord) {
       return res.status(404).json({ message: "Medical record not found." });
@@ -247,8 +248,8 @@ const getMedicalRecordByPatientId = async (req, res) => {
     const medicalRecords = await MedicalRecord.find({
       patient: patientId,
     })
-      .populate("prescriptions patient doctor")
-      .sort({ createdAt: -1 }); // (newest to oldest)
+      .populate("prescriptions patient doctor services")
+      .sort({ createdAt: -1 });
 
     if (!medicalRecords || medicalRecords.length === 0) {
       return res

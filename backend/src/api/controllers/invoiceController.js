@@ -131,6 +131,7 @@ const getInvoicesByPatientId = async (req, res) => {
         .status(404)
         .json({ message: "Invoices not found for the patient." });
     }
+    invoices.sort((a, b) => b.createdAt - a.createdAt);
 
     res.status(200).json(invoices);
   } catch (error) {
@@ -169,6 +170,8 @@ const getInvoicesByDoctorId = async (req, res) => {
         .json({ message: "Invoices not found for the doctor." });
     }
 
+    invoices.sort((a, b) => b.createdAt - a.createdAt);
+
     res.status(200).json(invoices);
   } catch (error) {
     console.error("Error retrieving invoices by doctor ID:", error);
@@ -205,6 +208,8 @@ const getInvoicesByDate = async (req, res) => {
         .json({ message: "No invoices found for the specified day." });
     }
 
+    invoices.sort((a, b) => b.createdAt - a.createdAt);
+
     res.status(200).json(invoices);
   } catch (error) {
     console.error("Error retrieving invoices for the day:", error);
@@ -227,6 +232,9 @@ const getAllInvoices = async (req, res) => {
     if (!invoices || invoices.length === 0) {
       return res.status(404).json({ message: "No invoices found" });
     }
+
+    invoices.sort((a, b) => b.createdAt - a.createdAt);
+
     res.status(200).json(invoices);
   } catch (error) {
     console.error("Error retrieving invoices:", error);
@@ -273,6 +281,8 @@ const getInvoicesAndTotal = async (req, res) => {
       0
     );
 
+    invoices.sort((a, b) => b.createdAt - a.createdAt);
+
     res.status(200).json({ invoices, totalInvoices, totalAmount });
   } catch (error) {
     console.error("Error retrieving invoices:", error);
@@ -295,6 +305,8 @@ const getAllInvoicesByDoctor = async (req, res) => {
         .status(404)
         .json({ message: "No invoices found for the specified doctor." });
     }
+
+    data.sort((a, b) => b.createdAt - a.createdAt);
 
     res.status(200).json(data);
   } catch (error) {
