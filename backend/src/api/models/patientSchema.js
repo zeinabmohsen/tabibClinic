@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 
 const patientSchema = new mongoose.Schema(
   {
-    _id: {
+    fileNumber: {
       type: Number,
-      required: true,
       unique: true,
     },
     firstName: {
@@ -105,6 +104,7 @@ patientSchema.method({
     const transformed = {};
     const fields = [
       "_id",
+      "fileNumber",
       "firstName",
       "lastName",
       "dob",
@@ -145,10 +145,13 @@ patientSchema.statics = {
    */
   async createPatient(patientData) {
     try {
-      const patientCount = await this.countDocuments({});
-      patientData._id = patientCount + 1;
+      const lastPatient = await this.findOne().sort({ fileNumber: -1 }).exec();
+      let fileNumber = 1;
+      if (lastPatient) {
+        fileNumber = lastPatient.fileNumber + 1;
+      }
+      const patient = await this.create({ ...patientData, fileNumber });
 
-      const patient = await this.create(patientData);
       return patient;
     } catch (error) {
       throw error;

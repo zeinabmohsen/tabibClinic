@@ -12,7 +12,6 @@ const createPatient = async (req, res) => {
       gender,
       secondPhone,
       middleName,
-      MotherName,
       doctors,
       motherName,
       insurance,

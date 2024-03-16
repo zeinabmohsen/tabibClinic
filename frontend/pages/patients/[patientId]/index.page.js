@@ -38,16 +38,10 @@ export default function PatientInfo() {
     ({ MedicalRecordData }) => MedicalRecordData?.patientMedicalRecords
   );
 
-  const prescriptions = useSelector(({ PrescriptionData }) =>
-    PrescriptionData?.patientPrescriptions.slice(0, 5)
-  );
-
   useEffect(() => {
-    if (patientId !== "new") {
-      dispatch(getPatientById(patientId));
-      dispatch(getMedicalRecordsByPatientId(patientId));
-      dispatch(getPrescriptionsByPatientId(patientId));
-    }
+    dispatch(getPatientById(patientId));
+    dispatch(getMedicalRecordsByPatientId(patientId));
+    dispatch(getPrescriptionsByPatientId(patientId));
   }, [dispatch, patientId]);
 
   return (
@@ -109,7 +103,7 @@ export default function PatientInfo() {
         setActive={setRecordModal}
         title="Create Medical Record"
         children={<CreateRecordModal selectedPatient={selectedPatient} />}
-        /> 
+      />
       <Modal
         active={prescriptionModal}
         setActive={setPrescriptionModal}
