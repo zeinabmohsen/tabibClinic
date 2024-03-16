@@ -5,14 +5,29 @@ function AddPrescriptionForm() {
   const [newMedication, setNewMedication] = useState("");
   const [newDosage, setNewDosage] = useState("");
   const [newInstructions, setNewInstructions] = useState("");
+  const [editModeIndex, setEditModeIndex] = useState(null);
 
   const handleAddMedication = () => {
-    const newMedicationData = {
-      medication: newMedication,
-      dosage: newDosage,
-      instructions: newInstructions,
-    };
-    setPrescriptions([...prescriptions, newMedicationData]); // Add new medication to list
+    if (editModeIndex !== null) {
+      const updatedPrescriptions = prescriptions.map((prescription, index) =>
+        index === editModeIndex
+          ? {
+              medication: newMedication,
+              dosage: newDosage,
+              instructions: newInstructions,
+            }
+          : prescription
+      );
+      setPrescriptions(updatedPrescriptions);
+      setEditModeIndex(null);
+    } else {
+      const newMedicationData = {
+        medication: newMedication,
+        dosage: newDosage,
+        instructions: newInstructions,
+      };
+      setPrescriptions([...prescriptions, newMedicationData]); // Add new medication to list
+    }
     setNewMedication(""); // Clear form fields
     setNewDosage("");
     setNewInstructions("");
@@ -23,8 +38,15 @@ function AddPrescriptionForm() {
     setPrescriptions(updatedPrescriptions);
   };
 
+  const handleEditMedication = (index) => {
+    const medication = prescriptions[index];
+    setNewMedication(medication.medication);
+    setNewDosage(medication.dosage);
+    setNewInstructions(medication.instructions);
+    setEditModeIndex(index);
+  };
+
   const handlePrint = () => {
-  
     // Create a printable document
     const printDocument = `
       <!DOCTYPE html>
@@ -34,46 +56,7 @@ function AddPrescriptionForm() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Prescription Form</title>
         <style>
-          body {
-            font-family: 'Arial Narrow', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
-            color: #333;
-          }
-  
-          .container {
-            max-width: 420px; /* A5 width */
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-          }
-  
-          h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #555;
-          }
-  
-          table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-          }
-  
-          th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-          }
-  
-          th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-          }
-  
-          td {
-            font-size: 14px;
-          }
+          /* Styles */
         </style>
       </head>
       <body>
@@ -85,6 +68,7 @@ function AddPrescriptionForm() {
                 <th>Medication</th>
                 <th>Dosage</th>
                 <th>Instructions</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -95,12 +79,25 @@ function AddPrescriptionForm() {
                       <td>${medication.medication}</td>
                       <td>${medication.dosage}</td>
                       <td>${medication.instructions}</td>
+                      <td>
+                        <button type="button" onclick="handleEdit(${index})">Edit</button>
+                        <button type="button" onclick="handleRemove(${index})">Remove</button>
+                      </td>
                     </tr>`
                 )
                 .join("")}
             </tbody>
           </table>
         </div>
+        <script>
+          function handleEdit(index) {
+            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'edit', index: index }));
+          }
+          
+          function handleRemove(index) {
+            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'remove', index: index }));
+          }
+        </script>
       </body>
       </html>
     `;
@@ -113,10 +110,6 @@ function AddPrescriptionForm() {
     // Directly open print dialog
     win.print();
   };
-  
-
-  
-  
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 my-4">
@@ -141,6 +134,13 @@ function AddPrescriptionForm() {
                   onClick={() => handleRemoveMedication(index)}
                 >
                   Remove
+                </button>
+                <button
+                  type="button"
+                  className="text-blue-500 hover:underline ml-2"
+                  onClick={() => handleEditMedication(index)}
+                >
+                  Edit
                 </button>
               </li>
             ))}
@@ -189,7 +189,7 @@ function AddPrescriptionForm() {
             className="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2"
             onClick={handleAddMedication}
           >
-            Add Medication
+            {editModeIndex !== null ? "Save Changes" : "Add Medication"}
           </button>
         </div>
       </form>
@@ -205,4 +205,5 @@ function AddPrescriptionForm() {
     </div>
   );
 }
+
 export default AddPrescriptionForm;

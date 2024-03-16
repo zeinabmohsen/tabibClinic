@@ -319,6 +319,10 @@ const makeInvoiceStatement = async (req, res) => {
   try {
     const { doctorId, startDate, endDate } = req.body;
 
+    // Adjusting the endDate to include the full day of March 16, 2024
+    const adjustedEndDate = new Date(endDate);
+    adjustedEndDate.setHours(23, 59, 59, 999);
+
     const doctor = await User.findById(doctorId);
     if (!doctor || doctor.role !== "doctor") {
       return res.status(404).json({ message: "Doctor not found" });
@@ -326,7 +330,7 @@ const makeInvoiceStatement = async (req, res) => {
 
     const invoices = await Invoice.find({
       doctor: doctorId,
-      date: { $gte: startDate, $lte: endDate },
+      date: { $gte: startDate, $lte: adjustedEndDate }, // Using adjusted endDate
     }).populate("patient doctor");
 
     if (!invoices || invoices.length === 0) {
@@ -360,12 +364,15 @@ const makeInvoiceStatement = async (req, res) => {
   }
 };
 
+
 const makeClinicStatement = async (req, res) => {
   try {
     const { startDate, endDate } = req.body;
+    const adjustedEndDate = new Date(endDate);
+    adjustedEndDate.setHours(23, 59, 59, 999);
 
     const invoices = await Invoice.find({
-      date: { $gte: startDate, $lte: endDate },
+      date: { $gte: startDate, $lte: adjustedEndDate },
     }).populate("doctor patient");
 
     if (!invoices || invoices.length === 0) {
@@ -375,6 +382,7 @@ const makeClinicStatement = async (req, res) => {
     }
 
     let clinicAmountTotal = 0;
+    let overallTotal = 0; // Initialize overall total
 
     const clinicStatement = {};
 
@@ -388,14 +396,16 @@ const makeClinicStatement = async (req, res) => {
 
       clinicStatement[doctorId] += clinicAmount;
       clinicAmountTotal += clinicAmount;
+      overallTotal += invoice.amount; // Add invoice amount to overall total
     });
 
-    res.status(200).json({ clinicStatement, clinicAmountTotal, invoices });
+    res.status(200).json({ clinicStatement, clinicAmountTotal, overallTotal, invoices });
   } catch (error) {
     console.error("Error generating clinic statement:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };
+
 
 module.exports = {
   createInvoice,
