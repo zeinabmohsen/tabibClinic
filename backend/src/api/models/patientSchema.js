@@ -147,9 +147,12 @@ patientSchema.statics = {
     try {
       const lastPatient = await this.findOne().sort({ fileNumber: -1 }).exec();
       let fileNumber = 1;
-      if (lastPatient) {
+      if (lastPatient && lastPatient.fileNumber) {
         fileNumber = lastPatient.fileNumber + 1;
+      } else {
+        fileNumber = (await this.find().exec()).length + 1;
       }
+
       const patient = await this.create({ ...patientData, fileNumber });
 
       return patient;

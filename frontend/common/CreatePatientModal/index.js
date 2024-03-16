@@ -25,10 +25,13 @@ export default function CreatePatientModal({ open, setOpen }) {
     drugHistory: "",
     surgicalHistory: "",
     pastMedicalHistory: "",
+    doctors: allDoctors.data[0]?._id,
+    referringPhysicians: "",
   });
 
   const create = useCallback(async () => {
     await dispatch(createPatient(formData));
+    setOpen(false);
   }, [dispatch, formData]);
 
   return (
@@ -39,7 +42,6 @@ export default function CreatePatientModal({ open, setOpen }) {
           onSubmit={(e) => {
             e.preventDefault();
             create();
-            setOpen(false);
           }}
         >
           <div className={styles.container}>
@@ -177,17 +179,17 @@ export default function CreatePatientModal({ open, setOpen }) {
                   <label htmlFor="title">Primary Doctor</label>
                   <Dropdown
                     value={
-                      formData.doctor
+                      formData.doctors
                         ? {
                             label:
                               allDoctors.data.find(
-                                (doctor) => doctor?._id === formData.doctor
+                                (doctor) => doctor?._id === formData.doctors
                               )?.firstName +
                               " " +
                               allDoctors.data.find(
-                                (doctor) => doctor?._id === formData.doctor
+                                (doctor) => doctor?._id === formData.doctors
                               )?.lastName,
-                            value: formData.doctor,
+                            value: formData.doctors,
                           }
                         : null
                     }
@@ -198,7 +200,7 @@ export default function CreatePatientModal({ open, setOpen }) {
                     setValue={(selectedValue) =>
                       setFormData({
                         ...formData,
-                        doctor: selectedValue,
+                        doctors: selectedValue,
                       })
                     }
                   />
@@ -207,17 +209,19 @@ export default function CreatePatientModal({ open, setOpen }) {
                   <label htmlFor="title">Secondary Doctors</label>
                   <Dropdown
                     value={
-                      formData.doctor
+                      formData.referringPhysicians
                         ? {
                             label:
                               allDoctors.data.find(
-                                (doctor) => doctor?._id === formData.doctor
+                                (doctor) =>
+                                  doctor?._id === formData.referringPhysicians
                               )?.firstName +
                               " " +
                               allDoctors.data.find(
-                                (doctor) => doctor?._id === formData.doctor
+                                (doctor) =>
+                                  doctor?._id === formData.referringPhysicians
                               )?.lastName,
-                            value: formData.doctor,
+                            value: formData.referringPhysicians,
                           }
                         : null
                     }
@@ -228,7 +232,7 @@ export default function CreatePatientModal({ open, setOpen }) {
                     setValue={(selectedValue) =>
                       setFormData({
                         ...formData,
-                        doctor: selectedValue,
+                        referringPhysicians: selectedValue,
                       })
                     }
                   />
