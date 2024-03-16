@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const patientSchema = new mongoose.Schema(
   {
+    _id: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
     firstName: {
       type: String,
       required: true,
@@ -39,7 +44,7 @@ const patientSchema = new mongoose.Schema(
     doctors: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User", 
+        ref: "User",
       },
     ],
     referringPhysicians: [
@@ -93,7 +98,6 @@ const patientSchema = new mongoose.Schema(
   }
 );
 
-
 // methods
 
 patientSchema.method({
@@ -106,7 +110,7 @@ patientSchema.method({
       "dob",
       "gender",
       "phone",
-      "secondPhone", 
+      "secondPhone",
       "motherName",
       "middleName",
       "allergies",
@@ -141,6 +145,9 @@ patientSchema.statics = {
    */
   async createPatient(patientData) {
     try {
+      const patientCount = await this.countDocuments({});
+      patientData._id = patientCount + 1;
+
       const patient = await this.create(patientData);
       return patient;
     } catch (error) {

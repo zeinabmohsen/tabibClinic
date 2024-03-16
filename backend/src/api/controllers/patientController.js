@@ -3,7 +3,24 @@ const mongoose = require("mongoose");
 
 const createPatient = async (req, res) => {
   try {
-    const { firstName, lastName, dob, phone, city, gender,secondPhone,middleName,MotherName,doctors,motherName,insurance,weight,drugHistory,surgicalHistory,pastMedicalHistory } = req.body;
+    const {
+      firstName,
+      lastName,
+      dob,
+      phone,
+      city,
+      gender,
+      secondPhone,
+      middleName,
+      MotherName,
+      doctors,
+      motherName,
+      insurance,
+      weight,
+      drugHistory,
+      surgicalHistory,
+      pastMedicalHistory,
+    } = req.body;
     const newPatient = await Patient.createPatient({
       firstName,
       lastName,
@@ -15,7 +32,11 @@ const createPatient = async (req, res) => {
       middleName,
       motherName,
       doctors,
-      insurance,weight,drugHistory,surgicalHistory,pastMedicalHistory
+      insurance,
+      weight,
+      drugHistory,
+      surgicalHistory,
+      pastMedicalHistory,
     });
 
     return res.status(201).json({
