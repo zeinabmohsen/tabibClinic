@@ -9,8 +9,8 @@ export default function CreatePatientModal({ open, setOpen }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    middleName:"",
-    motherName:"",
+    middleName: "",
+    motherName: "",
     phone: "",
     dob: "",
     city: "",
@@ -39,72 +39,72 @@ export default function CreatePatientModal({ open, setOpen }) {
           }}
         >
           <div className={styles.container}>
-          <div className="flex flex-col gap-4">
-              <div className="flex flex-row gap-4">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-row gap-4 justify-between">
                 <div className="flex flex-col gap-1 w-1/2">
-                <label htmlFor="title">First Name</label>
-                <Input
-                  type="text"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={formData.firstName}
-                  setValue={(value) => {
-                    setFormData((prev) => ({
-                      ...prev,
-                      firstName: value,
-                    }));
-                  }}
-                />
+                  <label htmlFor="title">First Name</label>
+                  <Input
+                    type="text"
+                    id="title"
+                    className="border border-gray-300 rounded-lg"
+                    value={formData.firstName}
+                    setValue={(value) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        firstName: value,
+                      }));
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="title">Middle Name</label>
+                  <Input
+                    type="text"
+                    id="title"
+                    className="border border-gray-300 rounded-lg"
+                    value={formData.middleName}
+                    setValue={(value) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        middleName: value,
+                      }));
+                    }}
+                  />
+                </div>
               </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="title">Middle Name</label>
-                <Input
-                  type="text"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={formData.middleName}
-                  setValue={(value) => {
-                    setFormData((prev) => ({
-                      ...prev,
-                      middleName: value,
-                    }));
-                  }}
-                />
-              </div>
-              </div>
-              <div className="flex flex-row gap-4">
+              <div className="flex gap-4 justify-between">
                 <div className="flex flex-col gap-1 w-1/2">
-                <label htmlFor="title">Last Name</label>
-                <Input
-                  type="text"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={formData.lastName}
-                  setValue={(value) => {
-                    setFormData((prev) => ({
-                      ...prev,
-                      lastName: value,
-                    }));
-                  }}
-                />
+                  <label htmlFor="title">Last Name</label>
+                  <Input
+                    type="text"
+                    id="title"
+                    className="border border-gray-300 rounded-lg"
+                    value={formData.lastName}
+                    setValue={(value) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        lastName: value,
+                      }));
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col gap-1 w-1/2">
+                  <label htmlFor="title">Mother's Name</label>
+                  <Input
+                    type="text"
+                    id="title"
+                    className="border border-gray-300 rounded-lg"
+                    value={formData.motherName}
+                    setValue={(value) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        motherName: value,
+                      }));
+                    }}
+                  />
+                </div>
               </div>
-              <div className="flex flex-col gap-1 w-1/2">
-                <label htmlFor="title">Mother's Name</label>
-                <Input
-                  type="text"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={formData.motherName}
-                  setValue={(value) => {
-                    setFormData((prev) => ({
-                      ...prev,
-                      motherName: value,
-                    }));
-                  }}
-                />
-              </div>
-              </div>
-              <div className="flex gap-4">
+              <div className="flex gap-4 justify-between">
                 <div className="flex flex-col gap-1 w-1/2">
                   <label htmlFor="title">Phone</label>
                   <Input
@@ -136,38 +136,37 @@ export default function CreatePatientModal({ open, setOpen }) {
                   />
                 </div>
               </div>
-
-              <div className="flex flex-row gap-4">
-                <div className="flex flex-col gap-1 w-1/2">
-                <label htmlFor="title">Insurance</label>
-                <Input
-                  type="text"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={formData.insurance}
-                  setValue={(value) => {
-                    setFormData((prev) => ({
-                      ...prev,
-                      insurance: value,
-                    }));
-                  }}
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="title">Weight</label>
-                <Input
-                  type="number"
-                  id="title"
-                  className="border border-gray-300 rounded-lg"
-                  value={formData.weight}
-                  setValue={(value) => {
-                    setFormData((prev) => ({
-                      ...prev,
-                      weight: value,
-                    }));
-                  }}
-                />
-              </div>
+              <div className="flex gap-4 justify-between">
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="title">Insurance</label>
+                  <Input
+                    type="text"
+                    id="title"
+                    className="border border-gray-300 rounded-lg"
+                    value={formData.insurance}
+                    setValue={(value) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        insurance: value,
+                      }));
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="title">Weight</label>
+                  <Input
+                    type="number"
+                    id="title"
+                    className="border border-gray-300 rounded-lg"
+                    value={formData.weight}
+                    setValue={(value) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        weight: value,
+                      }));
+                    }}
+                  />
+                </div>
               </div>
               <div className="flex flex-col gap-1">
                 <label htmlFor="title">City</label>
@@ -292,5 +291,3 @@ export default function CreatePatientModal({ open, setOpen }) {
     </div>
   );
 }
-
-
