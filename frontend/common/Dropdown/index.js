@@ -55,12 +55,12 @@ const Dropdown = ({ value, values, setValue, type, disabled = false }) => {
       <div
         className="
         absolute z-50
-        group w-full border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-transparent"
+        group w-full border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-transparent transition-all duration-300 ease-in-out"
       >
         {!isOpen && !value ? (
           <div
             onClick={toggleDropdown}
-            className="flex items-center justify-between w-full px-4 py-2 text-gray-800 border rounded-md border-gray-300 focus:outline-none w-full cursor-pointer"
+            className="flex items-center justify-between w-full px-4 py-2 text-gray-800 border rounded-md border-gray-300 focus:outline-none w-full cursor-pointer hover:border-gray-400 transition-all duration-300 ease-in-out w-full"
           >
             <span className="mr-2">Select</span>
             <svg

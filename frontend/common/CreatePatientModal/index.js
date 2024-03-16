@@ -1,11 +1,15 @@
 import { useCallback, useState } from "react";
 import Input from "../Input";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPatient } from "../../actions/PatientActions";
 import styles from "./styles/index.module.scss";
+import Dropdown from "../Dropdown";
 
 export default function CreatePatientModal({ open, setOpen }) {
   const dispatch = useDispatch();
+
+  const allDoctors = useSelector(({ DoctorData }) => DoctorData.allDoctors);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -41,7 +45,7 @@ export default function CreatePatientModal({ open, setOpen }) {
           <div className={styles.container}>
             <div className="flex flex-col gap-4">
               <div className="flex flex-row gap-4 justify-between">
-                <div className="flex flex-col gap-1 w-1/2">
+                <div className="flex flex-col gap-1 w-full">
                   <label htmlFor="title">First Name</label>
                   <Input
                     type="text"
@@ -56,7 +60,7 @@ export default function CreatePatientModal({ open, setOpen }) {
                     }}
                   />
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 w-full">
                   <label htmlFor="title">Middle Name</label>
                   <Input
                     type="text"
@@ -73,7 +77,7 @@ export default function CreatePatientModal({ open, setOpen }) {
                 </div>
               </div>
               <div className="flex gap-4 justify-between">
-                <div className="flex flex-col gap-1 w-1/2">
+                <div className="flex flex-col gap-1 w-full">
                   <label htmlFor="title">Last Name</label>
                   <Input
                     type="text"
@@ -88,7 +92,7 @@ export default function CreatePatientModal({ open, setOpen }) {
                     }}
                   />
                 </div>
-                <div className="flex flex-col gap-1 w-1/2">
+                <div className="flex flex-col gap-1 w-full">
                   <label htmlFor="title">Mother's Name</label>
                   <Input
                     type="text"
@@ -105,7 +109,7 @@ export default function CreatePatientModal({ open, setOpen }) {
                 </div>
               </div>
               <div className="flex gap-4 justify-between">
-                <div className="flex flex-col gap-1 w-1/2">
+                <div className="flex flex-col gap-1 w-full">
                   <label htmlFor="title">Phone</label>
                   <Input
                     type="text"
@@ -120,7 +124,7 @@ export default function CreatePatientModal({ open, setOpen }) {
                     }}
                   />
                 </div>
-                <div className="flex flex-col gap-1 w-1/2">
+                <div className="flex flex-col gap-1 w-full">
                   <label htmlFor="title">Secondary Phone</label>
                   <Input
                     type="text"
@@ -137,7 +141,7 @@ export default function CreatePatientModal({ open, setOpen }) {
                 </div>
               </div>
               <div className="flex gap-4 justify-between">
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 w-full">
                   <label htmlFor="title">Insurance</label>
                   <Input
                     type="text"
@@ -152,7 +156,7 @@ export default function CreatePatientModal({ open, setOpen }) {
                     }}
                   />
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 w-full">
                   <label htmlFor="title">Weight</label>
                   <Input
                     type="number"
@@ -165,6 +169,68 @@ export default function CreatePatientModal({ open, setOpen }) {
                         weight: value,
                       }));
                     }}
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4 justify-between">
+                <div className="flex flex-col gap-1 w-full">
+                  <label htmlFor="title">Primary Doctor</label>
+                  <Dropdown
+                    value={
+                      formData.doctor
+                        ? {
+                            label:
+                              allDoctors.data.find(
+                                (doctor) => doctor?._id === formData.doctor
+                              )?.firstName +
+                              " " +
+                              allDoctors.data.find(
+                                (doctor) => doctor?._id === formData.doctor
+                              )?.lastName,
+                            value: formData.doctor,
+                          }
+                        : null
+                    }
+                    values={allDoctors.data.map((doctor) => ({
+                      label: doctor?.firstName + " " + doctor?.lastName,
+                      value: doctor?._id,
+                    }))}
+                    setValue={(selectedValue) =>
+                      setFormData({
+                        ...formData,
+                        doctor: selectedValue,
+                      })
+                    }
+                  />
+                </div>
+                <div className="flex flex-col gap-1 w-full">
+                  <label htmlFor="title">Secondary Doctors</label>
+                  <Dropdown
+                    value={
+                      formData.doctor
+                        ? {
+                            label:
+                              allDoctors.data.find(
+                                (doctor) => doctor?._id === formData.doctor
+                              )?.firstName +
+                              " " +
+                              allDoctors.data.find(
+                                (doctor) => doctor?._id === formData.doctor
+                              )?.lastName,
+                            value: formData.doctor,
+                          }
+                        : null
+                    }
+                    values={allDoctors.data.map((doctor) => ({
+                      label: doctor?.firstName + " " + doctor?.lastName,
+                      value: doctor?._id,
+                    }))}
+                    setValue={(selectedValue) =>
+                      setFormData({
+                        ...formData,
+                        doctor: selectedValue,
+                      })
+                    }
                   />
                 </div>
               </div>

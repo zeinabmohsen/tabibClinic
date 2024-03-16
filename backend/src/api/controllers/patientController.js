@@ -31,13 +31,20 @@ const createPatient = async (req, res) => {
       secondPhone,
       middleName,
       motherName,
-      doctors,
       insurance,
       weight,
       drugHistory,
       surgicalHistory,
       pastMedicalHistory,
     });
+
+    if (doctors) {
+      const doctorsArray = doctors.split(",");
+      for (let i = 0; i < doctorsArray.length; i++) {
+        newPatient.doctors.push(doctorsArray[i]);
+      }
+    }
+    
 
     if (referringPhysicians) {
       const referringPhysiciansArray = referringPhysicians.split(",");
