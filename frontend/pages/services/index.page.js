@@ -17,8 +17,8 @@ export default function ServicesInfo() {
   );
   const user = useSelector(({ UserData }) => UserData.data);
   useEffect(() => {
-    dispatch(getServices());
-  }, [dispatch]);
+    dispatch(getServices(user?._id));
+  }, [dispatch, user]);
 
   // if the page loads, the user is redirected to doctors/doctorId
   useEffect(() => {

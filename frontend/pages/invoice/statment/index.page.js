@@ -26,6 +26,10 @@ const InvoiceStatement = () => {
   const statementData = useSelector(
     ({ InvoiceData }) => InvoiceData.invoiceStatement?.data
   );
+  const loaded = useSelector(
+    ({ InvoiceData }) => InvoiceData.invoiceStatement?.loaded
+  );
+
   const [formData, setFormData] = useState({
     selectedDoctor: 0,
     startDate: "",
@@ -251,7 +255,6 @@ const InvoiceStatement = () => {
     // Directly open print dialog
     win.print();
   };
-
   return (
     <div
       className="sm:rounded-lg mt-20  p-4 flex flex-col  
@@ -369,36 +372,45 @@ const InvoiceStatement = () => {
         </thead>
         {/* Table Body */}
         <tbody>
-          {statementData?.invoices?.map((invoice, index) => (
-            <tr
-              key={index}
-              className={`${
-                index % 2 === 0 ? "bg-white" : "bg-gray-50"
-              } border-b dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400`}
-            >
-              <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {`${invoice?.patient?.firstName} ${invoice?.patient?.lastName}`}
-              </td>
-              <td className="px-6 py-4">
-                {" "}
-                {`${invoice?.doctor?.firstName} ${invoice?.doctor?.lastName}`}
-              </td>
-              <td className="px-6 py-4">
-                {new Date(invoice?.date).toLocaleDateString()}
-              </td>
-              <td className="px-6 py-4">{invoice?.doctorAmount}</td>
-              <td className="px-6 py-4">{invoice?.clinicAmount}</td>
-              <td className="px-6 py-4">{invoice?.amount}</td>
-              <td className="px-6 py-4">{invoice?.currency}</td>
-              <td
-                className={`px-6 py-4 
+          {loaded && statementData?.invoices?.length > 0
+            ? statementData?.invoices?.map((invoice, index) => (
+                <tr
+                  key={index}
+                  className={`${
+                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  } border-b dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400`}
+                >
+                  <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {`${invoice?.patient?.firstName} ${invoice?.patient?.lastName}`}
+                  </td>
+                  <td className="px-6 py-4">
+                    {" "}
+                    {`${invoice?.doctor?.firstName} ${invoice?.doctor?.lastName}`}
+                  </td>
+                  <td className="px-6 py-4">
+                    {new Date(invoice?.date).toLocaleDateString()}
+                  </td>
+                  <td className="px-6 py-4">{invoice?.doctorAmount}</td>
+                  <td className="px-6 py-4">{invoice?.clinicAmount}</td>
+                  <td className="px-6 py-4">{invoice?.amount}</td>
+                  <td className="px-6 py-4">{invoice?.currency}</td>
+                  <td
+                    className={`px-6 py-4 
                 ${invoice?.paymentStatus === "Unpaid" ? "text-red-500" : ""}
                 `}
-              >
-                {invoice?.paymentStatus}
-              </td>
-            </tr>
-          ))}
+                  >
+                    {invoice?.paymentStatus}
+                  </td>
+                </tr>
+              ))
+            : loaded &&
+              statementData?.length === 0 && (
+                <tr>
+                  <td colSpan="8" className="text-center p-4">
+                    No Invoices Found
+                  </td>
+                </tr>
+              )}
         </tbody>
       </table>
       <div className={styles.total}>

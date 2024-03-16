@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteAttachmentFromRecord,
+  deleteMedicalRecord,
   getMedicalRecordById,
   updateMedicalRecord,
 } from "../../../../../actions/MedicalRecordActions";
@@ -62,6 +63,11 @@ const MedicalRecordDetails = () => {
     setMedicalRecord(data);
   }, [data]);
 
+  const handleDeleteRecord = () => {
+    dispatch(deleteMedicalRecord(medicalrecordId));
+    router.push(`/patients/${patientId}`);
+  };
+
   const handleDeleteAttachment = (attachmentId) => {
     dispatch(deleteAttachmentFromRecord(medicalrecordId, attachmentId));
   };
@@ -79,7 +85,21 @@ const MedicalRecordDetails = () => {
       <div className="bg-white rounded-md shadow-md p-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">
           Medical Record Details
+          {isEditing && (
+            <div
+              className="text-red-500 hover:text-red-700 cursor-pointer ml-2 text-xl inline-block"
+              onClick={handleDeleteRecord}
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </div>
+          )}
         </h2>
+        <div className="flex items-center mb-3">
+          <h3 className="text-lg font-semibold text-gray-800">Doctor:</h3>
+          <span className="ml-4 text-gray-800">
+            {medicalRecord?.doctor?.firstName} {medicalRecord?.doctor?.lastName}
+          </span>
+        </div>
         <div className="flex items-center mb-3">
           <h3 className="text-lg font-semibold text-gray-800">Date:</h3>
           <span className="ml-4 text-gray-800">

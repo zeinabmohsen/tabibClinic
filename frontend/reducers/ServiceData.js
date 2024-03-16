@@ -17,6 +17,11 @@ const ServiceData = (state = initialState, { type, data }) => {
         ...state,
         allServices: data,
       };
+    case ACTIONS.CREATE_SERVICE:
+      return {
+        ...state,
+        allServices: [...state.allServices, data],
+      };
     case ACTIONS.DELETE_SERVICE:
       return {
         ...state,

@@ -104,11 +104,12 @@ export default function PatientInfo() {
         children={<InvoiceForm setInvoiceModal={setInvoiceModal} />}
       />
       <Modal
+        //maybe this is not being used
         active={recordModal}
         setActive={setRecordModal}
         title="Create Medical Record"
         children={<CreateRecordModal selectedPatient={selectedPatient} />}
-      />
+        /> 
       <Modal
         active={prescriptionModal}
         setActive={setPrescriptionModal}

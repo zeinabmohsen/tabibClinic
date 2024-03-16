@@ -23,15 +23,12 @@ const PatientsTable = () => {
     <div className="flex flex-col w-full justify-end overflow-x-auto sm:rounded-lg mt-20">
       <div className="flex justify-between items-center mb-5">
         <div className="flex items-center">
-          {/* Button 2 */}
-          {(user?.role === "admin" || user?.role === "secretary") && (
-            <button
-              onClick={() => setModal(true)}
-              className="p-4 ml-5 bg-white dark:bg-gray-800 dark:text-white shadow-md sm:rounded-lg  text-nowrap"
-            >
-              Create Patient
-            </button>
-          )}
+          <button
+            onClick={() => setModal(true)}
+            className="p-4 ml-5 bg-white dark:bg-gray-800 dark:text-white shadow-md sm:rounded-lg  text-nowrap"
+          >
+            Create Patient
+          </button>
         </div>
         <div className="flex items-center w-1/3">
           <input

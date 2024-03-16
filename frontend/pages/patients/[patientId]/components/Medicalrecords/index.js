@@ -9,6 +9,7 @@ import { useReactToPrint } from "react-to-print";
 import MedicalRecordsPrintComponent from "./components/mrprint";
 import FullMedicalRecordsPrintComponent from "./components/detailedmrprint/index.page";
 import AddAttachementModal from "../../../../../common/AddAttachmentModal";
+import AddMRServices from "../../../../../common/AddMRServicesModal";
 
 const Medicalrecords = ({
   data,
@@ -22,6 +23,7 @@ const Medicalrecords = ({
   const [prescriptionModal, setPrescriptionModal] = useState(false);
   const [attachModal, setAttachModal] = useState(false);
   const [invoiceModal, setInvoiceModal] = useState(false);
+  const [AddMRServicesModal, setAddMRServicesModal] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
 
   const handlePrescriptionModal = (record) => {
@@ -46,6 +48,11 @@ const Medicalrecords = ({
   const handleFullPrint = useReactToPrint({
     content: () => fullRef.current,
   });
+
+  const handleAddMRServicesModal = (record) => {
+    setAddMRServicesModal(true);
+    setSelectedRecord(record);
+  };
 
   return (
     <div className=" mx-auto w-11/12">
@@ -130,7 +137,7 @@ const Medicalrecords = ({
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handlePrescriptionModal(record._id);
+                    handleAddMRServicesModal(record);
                   }}
                   className="border border-black text-black font-bold py-1 px-2 rounded ml-2"
                 >
@@ -176,23 +183,15 @@ const Medicalrecords = ({
             </div>
             <hr className="my-2" />
             <div class="flex my-2">
-  <div class="inline-block rounded-full border border-black   font-bold px-2 py-1 mr-3">
-    <span class="text-black-700 text-sm font-semibold">Service 1</span>
-  </div>
-  <div class="inline-block rounded-full border border-black hover:bg-blue-700 text-white font-bold px-2 py-1 mr-3">
-    <span class="text-gray-700 text-sm font-semibold">Service 2</span>
-  </div>
-  <div class="inline-block rounded-full border border-black hover:bg-blue-700 text-white font-bold px-2 py-1 mr-3">
-    <span class="text-gray-700 text-sm font-semibold">Service 3</span>
-  </div>
-  <div class="inline-block rounded-full border border-black hover:bg-blue-700 text-white font-bold px-2 py-1 mr-3">
-    <span class="text-gray-700 text-sm font-semibold">Service 4</span>
-  </div>
-  <div class="inline-block rounded-full border border-black hover:bg-blue-700 text-white font-bold px-2 py-1 mr-3">
-    <span class="text-gray-700 text-sm font-semibold">Service 5</span>
-  </div>
-</div>
-
+              {Array.isArray(record?.services) &&
+                record?.services?.map((service) => (
+                  <div class="inline-block rounded-full border border-black   font-bold px-2 py-1 mr-3">
+                    <span class="text-black-700 text-sm font-semibold">
+                      {service?.name}
+                    </span>
+                  </div>
+                ))}
+            </div>
 
             <div className="flex items-center justify-between">
               <button className="border border-black text-black font-bold py-1 px-2 rounded mr-2">
@@ -231,6 +230,17 @@ const Medicalrecords = ({
           <AddAttachementModal
             selectedRecord={selectedRecord}
             setAttachModal={setAttachModal}
+          />
+        }
+      />
+      <Modal
+        active={AddMRServicesModal}
+        setActive={setAddMRServicesModal}
+        title={`Add Services`}
+        children={
+          <AddMRServices
+            selectedRecord={selectedRecord}
+            setActive={setAddMRServicesModal}
           />
         }
       />

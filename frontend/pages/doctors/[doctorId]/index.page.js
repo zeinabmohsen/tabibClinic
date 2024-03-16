@@ -7,7 +7,7 @@ import { getDoctor } from "../../../actions/DoctorActions";
 import Modal from "../../../common/Modal";
 import CreateServiceModal from "../../../common/CreateServiceModal";
 import Services from "./components/Services";
-import { deleteService, selectService } from "../../../actions/ServiceActions";
+import { deleteService, getServices, selectService } from "../../../actions/ServiceActions";
 
 export default function DoctorInfo() {
   const dispatch = useDispatch();
@@ -23,6 +23,8 @@ export default function DoctorInfo() {
     ({ DoctorData }) => DoctorData?.selectedDoctor.data
   );
 
+  const services = useSelector(({ ServiceData }) => ServiceData?.allServices);
+
   const selectedServiceData = useSelector(
     ({ ServiceData }) => ServiceData?.selectedService
   );
@@ -37,6 +39,7 @@ export default function DoctorInfo() {
 
   useEffect(() => {
     dispatch(getDoctor(doctorId));
+    dispatch(getServices(doctorId));
   }, [dispatch, doctorId]);
 
   useEffect(() => {
@@ -85,7 +88,7 @@ export default function DoctorInfo() {
             {Array.isArray(selectedDoctor?.services) &&
               selectedDoctor?.services.length > 0 && (
                 <Services
-                  data={selectedDoctor?.services || []}
+                  data={services || []}
                   setClickedService={(service) => {
                     setSelectedService(service);
                     dispatch(selectService(service));
