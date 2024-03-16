@@ -116,7 +116,9 @@ export const getInvoiceStatement =
 
       dispatch({ type: ACTIONS.INVOICE_STATEMENT, data });
     } catch (error) {
+      toast.error(error?.response?.data?.message);
       console.log(error);
+      dispatch({ type: ACTIONS.INVOICE_STATEMENT, data: [] });
     }
   };
 

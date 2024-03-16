@@ -1,25 +1,33 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./styles/index.module.scss";
 
-const Dropdown = ({ value, values, setValue, type }) => {
+const Dropdown = ({ value, values, setValue, type, disabled = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const divRef = useRef();
 
   const toggleDropdown = () => {
-    setIsOpen((prevState) => !prevState);
+    if (!disabled) {
+      setIsOpen((prevState) => !prevState);
+    }
   };
 
   const handleInputChange = (e) => {
-    setSearchTerm(e.target.value.toLowerCase());
+    if (!disabled) {
+      setSearchTerm(e.target.value.toLowerCase());
+    }
   };
 
   const handleFocus = () => {
-    setIsOpen(true);
+    if (!disabled) {
+      setIsOpen(true);
+    }
   };
 
   const handleBlur = () => {
-    setIsOpen(false);
+    if (!disabled) {
+      setIsOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -83,8 +91,10 @@ const Dropdown = ({ value, values, setValue, type }) => {
         ) : (
           <div
             onClick={() => {
-              setValue("");
-              toggleDropdown();
+              if (!disabled) {
+                setValue("");
+                toggleDropdown();
+              }
             }}
             className="flex items-center justify-between w-full px-4 py-2 text-gray-800 border rounded-md border-gray-300 focus:outline-none w-full cursor-pointer"
           >

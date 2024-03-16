@@ -45,10 +45,10 @@ export default function CreateServiceModal({
             ...formData,
           })
         );
+        await dispatch(clearSelectedService());
       } else {
         await dispatch(createService(formData));
       }
-      await dispatch(clearSelectedService());
 
       setFormData({
         name: "",

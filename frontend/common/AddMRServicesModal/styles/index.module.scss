@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 500px;
+
+  .services {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 10px;
+
+    .bubbleContainer {
+      display: flex;
+      flex-wrap: wrap;
+
+      .bubble {
+        padding: 10px;
+        margin: 5px;
+        border-radius: 30px;
+        border: 1px solid #191b20;
+        cursor: pointer;
+
+        &.selected {
+          background-color: #a5a5a5;
+        }
+
+        &:hover {
+          background-color: #a5a5a5;
+        }
+      }
+    }
+  }
+}

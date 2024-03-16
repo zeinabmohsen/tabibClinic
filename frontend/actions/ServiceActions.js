@@ -2,7 +2,7 @@ import axios from "../utils/Http";
 import { toast } from "react-toastify";
 
 export const ACTIONS = {
-  GET_SERVICES: "/service",
+  GET_SERVICES: "/service/:doctorId",
   CREATE_SERVICE: "/service",
   UPDATE_SERVICE: "/service/:id",
   DELETE_SERVICE: "/service/:id",
@@ -10,9 +10,9 @@ export const ACTIONS = {
   CLEAR_SELECTED_SERVICE: "/service", 
 };
 
-export const getServices = () => async (dispatch) => {
+export const getServices = (doctorId) => async (dispatch) => {
   try {
-    const { data } = await axios.get("/service");
+    const { data } = await axios.get(`/service/${doctorId}`);
     dispatch({ type: ACTIONS.GET_SERVICES, data });
   } catch (error) {
     console.log(error);
@@ -23,7 +23,7 @@ export const createService = (service) => async (dispatch) => {
   try {
     const { data } = await axios.post("/service", service);
     toast.success("Service created successfully");
-    dispatch(getServices());
+    dispatch({ type: ACTIONS.CREATE_SERVICE, data });
   } catch (error) {
     toast.error("Error while creating service");
     console.log(error);
@@ -36,7 +36,6 @@ export const updateService = (id, service) => async (dispatch) => {
       ...service,
     });
     toast.success("Service updated successfully");
-    dispatch(getServices());
   } catch (error) {
     toast.error("Error while updating service");
     console.log(error);
