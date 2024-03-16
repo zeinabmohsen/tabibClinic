@@ -189,11 +189,11 @@ const deleteMedicalRecord = async (req, res) => {
 const updateMedicalRecord = async (req, res) => {
   try {
     const { medicalRecordId } = req.params;
-    const { patient, title, description, fees, services } = req.body;
+    const { patient, title, description, fees, services , notes } = req.body;
 
     const updatedRecord = await MedicalRecord.findByIdAndUpdate(
       medicalRecordId,
-      { patient, title, description, fees, services },
+      { patient, title, description, fees, services ,notes },
       { new: true }
     );
 

@@ -36,25 +36,6 @@ const MedicalRecordDetails = () => {
     setIsEditing(true);
   };
 
-  // const handlePrint = () => {
-  //   const {
-  //     doctorName,
-  //     patientName,
-  //     date,
-  //     notes,
-  //     prescriptions,
-  //     attachments,
-  //     description,
-  //     fees,
-  //   } = medicalRecord;
-  //   console.log(data);
-
-  //   const win = window.open("", "_blank");
-  //   win.document.write(printDocument);
-  //   win.document.close();
-  //   win.print();
-  // };
-
   useEffect(() => {
     dispatch(getMedicalRecordById(medicalrecordId));
   }, [dispatch, medicalrecordId]);
@@ -116,6 +97,21 @@ const MedicalRecordDetails = () => {
               setMedicalRecord({
                 ...medicalRecord,
                 description: e.target.value,
+              })
+            }
+            disabled={!isEditing}
+          />
+        </div>
+        <div className="mb-3">
+          <h3 className="text-lg font-semibold text-gray-800">Notes:</h3>
+          <textarea
+            rows="4"
+            className="w-full border rounded-md p-2"
+            value={medicalRecord?.notes}
+            onChange={(e) =>
+              setMedicalRecord({
+                ...medicalRecord,
+                notes: e.target.value,
               })
             }
             disabled={!isEditing}

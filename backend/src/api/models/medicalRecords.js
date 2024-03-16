@@ -46,6 +46,9 @@ const medicalRecordSchema = new mongoose.Schema(
         ref: "Service",
       },
     ],
+    notes: {
+      type: String,
+    },
   },
   {
     timestamps: true,
