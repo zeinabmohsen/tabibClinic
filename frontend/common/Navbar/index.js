@@ -80,12 +80,13 @@ export default function Nav() {
             }
           />
           <Tab
-            text={user?.firstName + " " + user?.lastName}
-            icon={faUser}
-            active={active === "profile"}
-            setActive={setActive}
-            profile
-          />
+    text={user.role === "doctor" ? `Dr. ${user.firstName} ${user.lastName}` : `${user.firstName} ${user.lastName}`}
+    icon={faUser}
+    active={active === "profile"}
+    setActive={setActive}
+    profile
+/>
+
         </div>
       </motion.div>
     </>

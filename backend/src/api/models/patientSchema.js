@@ -13,7 +13,7 @@ const patientSchema = new mongoose.Schema(
     middleName: {
       type: String,
     },
-    MotherName: {
+    motherName: {
       type: String,
     },
     dob: {
@@ -25,7 +25,6 @@ const patientSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: true,
     },
     secondPhone: {
       type: String,
@@ -73,11 +72,27 @@ const patientSchema = new mongoose.Schema(
         ref: "Prescription",
       },
     ],
+    pastMedicalHistory: {
+      type: String,
+    },
+    surgicalHistory: {
+      type: String,
+    },
+    drugHistory: {
+      type: String,
+    },
+    weight: {
+      type: Number,
+    },
+    insurance: {
+      type: String,
+    },
   },
   {
     timestamps: true,
   }
 );
+
 
 // methods
 
@@ -92,13 +107,21 @@ patientSchema.method({
       "gender",
       "phone",
       "secondPhone", 
+      "motherName",
+      "middleName",
       "allergies",
       "city",
-      "doctor",
+      "doctors",
+      "referringPhysicians",
       "medicalRecords",
       "invoices",
       "appointments",
       "prescriptions",
+      "insurance",
+      "weight",
+      "drugHistory",
+      "surgicalHistory",
+      "pastMedicalHistory",
       "createdAt",
     ];
 
