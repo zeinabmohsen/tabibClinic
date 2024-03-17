@@ -12,6 +12,7 @@ const {
   getPatientById,
   updatePatientById,
   deletePatientById,
+  getPatientsByDoctorId
 } = require("../../controllers/patientController");
 
 // Route to create a new patient
@@ -28,5 +29,7 @@ router.put("/:id", updatePatientValidator, updatePatientById);
 
 // Route to delete a specific patient by ID
 router.delete("/:id", deletePatientValidator, deletePatientById);
+
+router.get("/doctor/:doctorId", getPatientsByDoctorId);
 
 module.exports = router;

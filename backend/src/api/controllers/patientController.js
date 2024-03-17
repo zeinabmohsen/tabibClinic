@@ -25,7 +25,9 @@ const createPatient = async (req, res) => {
       firstName,
       lastName,
       dob,
+      doctors,
       phone,
+      referringPhysicians,
       city,
       gender,
       secondPhone,
@@ -38,19 +40,6 @@ const createPatient = async (req, res) => {
       pastMedicalHistory,
     });
 
-    if (doctors) {
-      const doctorsArray = doctors.split(",");
-      for (let i = 0; i < doctorsArray.length; i++) {
-        newPatient.doctors.push(doctorsArray[i]);
-      }
-    }
-
-    if (referringPhysicians) {
-      const referringPhysiciansArray = referringPhysicians.split(",");
-      for (let i = 0; i < referringPhysiciansArray.length; i++) {
-        newPatient.referringPhysicians.push(referringPhysiciansArray[i]);
-      }
-    }
 
     await newPatient.save();
 
@@ -162,10 +151,40 @@ const updatePatientById = async (req, res) => {
     return res.status(500).json({ error: "Error updating patient" });
   }
 };
+
+const getPatientsByDoctorId = async (req, res) => {
+  try {
+    const { doctorId } = req.params;
+
+    if (!doctorId || !mongoose.Types.ObjectId.isValid(doctorId)) {
+      return res.status(400).json({ error: "Invalid doctor ID" });
+    }
+
+    const patients = await Patient.find({
+      $or: [
+        { doctors: doctorId },
+        { referringPhysicians: doctorId }
+      ]
+    })
+      .populate("doctors")
+      .populate("referringPhysicians")
+      .exec();
+
+    const data = patients.map((patient) => patient.transform());
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error retrieving patients" });
+  }
+};
+
+
 module.exports = {
   createPatient,
   deletePatientById,
   getPatientById,
   getAllPatients,
   updatePatientById,
+  getPatientsByDoctorId
 };

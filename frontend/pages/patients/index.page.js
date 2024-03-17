@@ -55,16 +55,16 @@ const PatientsTable = () => {
               Mother Name
             </th>
             <th scope="col" className="px-6 py-3">
-              Email
-            </th>
-            <th scope="col" className="px-6 py-3">
               Phone
             </th>
             <th scope="col" className="px-6 py-3">
               Secondary Phone
             </th>
             <th scope="col" className="px-6 py-3">
-              Physician Name
+              Primary Doctor
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Secondary Doctor
             </th>
             <th scope="col" className="px-6 py-3">
               Gender
@@ -93,10 +93,25 @@ const PatientsTable = () => {
                   {patient?.firstName} {patient?.middleName} {patient?.lastName}
                 </td>
                 <td className="px-6 py-4">{patient?.motherName}</td>
-                <td className="px-6 py-4">{patient?.email}</td>
                 <td className="px-6 py-4">{patient?.phone}</td>
                 <td className="px-6 py-4">{patient?.secondPhone}</td>
-                <td className="px-6 py-4">{patient?.physicianName}</td>
+                <td className="px-6 py-4"><td className="px-6 py-4">
+                    {patient?.doctors && (
+                      <div>
+                        {patient.doctors.firstName} {patient.doctors.lastName}
+                      </div>
+                    )}
+                    </td>
+                    </td> 
+                    <td className="px-6 py-4">
+                      {patient?.referringPhysicians && (
+                      <div>
+                      {patient.referringPhysicians.firstName} {patient.referringPhysicians.lastName}
+                      </div>
+                      )}</td>
+
+
+
                 <td className="px-6 py-4">{patient?.gender}</td>
                 <td className="px-6 py-4">{patient?.city}</td>
               </tr>
