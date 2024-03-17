@@ -7,6 +7,7 @@ export const ACTIONS = {
   UPDATE_PATIENT: "/patient/:id",
   DELETE_PATIENT: "/patient/:id",
   GET_PATIENT_BY_ID: "/patient/:id",
+  GET_PATIENTS_BY_DOCTOR: "/patient/doctor/:doctorId",
 };
 
 export const getAllPatients = (search) => async (dispatch) => {
@@ -15,15 +16,13 @@ export const getAllPatients = (search) => async (dispatch) => {
     dispatch({ type: ACTIONS.GET_ALL_PATIENTS, data });
   } catch (error) {
     console.log(error);
+    dispatch({ type: ACTIONS.GET_ALL_PATIENTS, data: [] });
   }
 };
 
 export const createPatient = (patient) => async (dispatch) => {
   try {
-    const { data } = await axios.post("/patient", {
-      ...patient,
-      // dob: new Date(patient?.dob).toISOString(),
-    });
+    const { data } = await axios.post("/patient", patient);
     toast.success("Patient created successfully");
     dispatch({ type: ACTIONS.CREATE_PATIENT, data });
   } catch (error) {
@@ -58,5 +57,17 @@ export const getPatientById = (id) => async (dispatch) => {
     dispatch({ type: ACTIONS.GET_PATIENT_BY_ID, data });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getPatientsByDoctor = (doctorId, search) => async (dispatch) => {
+  try {
+    const { data } = await axios.get(
+      `/patient/doctor/${doctorId}?search=${search ? search : ""}`
+    );
+    dispatch({ type: ACTIONS.GET_PATIENTS_BY_DOCTOR, data });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: ACTIONS.GET_PATIENTS_BY_DOCTOR, data: [] });
   }
 };

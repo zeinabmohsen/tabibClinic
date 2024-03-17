@@ -9,6 +9,10 @@ const initialState = {
     loaded: false,
     data: {},
   },
+  patientsByDoctor: {
+    loaded: false,
+    data: [],
+  },
 };
 
 const PatientData = (state = initialState, { type, data }) => {
@@ -52,7 +56,17 @@ const PatientData = (state = initialState, { type, data }) => {
         ...state,
         allPatients: {
           loaded: true,
-          data: state.allPatients.data.filter((patient) => patient?.id !== data),
+          data: state.allPatients.data.filter(
+            (patient) => patient?.id !== data
+          ),
+        },
+      };
+    case ACTIONS.GET_PATIENTS_BY_DOCTOR:
+      return {
+        ...state,
+        patientsByDoctor: {
+          loaded: true,
+          data,
         },
       };
     default:

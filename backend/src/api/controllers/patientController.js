@@ -40,7 +40,6 @@ const createPatient = async (req, res) => {
       pastMedicalHistory,
     });
 
-
     await newPatient.save();
 
     return res.status(201).json({
@@ -92,6 +91,7 @@ const getAllPatients = async (req, res) => {
         { lastName: { $regex: search, $options: "i" } },
         { phone: { $regex: search, $options: "i" } },
         { city: { $regex: search, $options: "i" } },
+        { fileNumber: !isNaN(search) ? parseInt(search) : null },
         {
           _id: mongoose.Types.ObjectId.isValid(search)
             ? new mongoose.Types.ObjectId(search)
@@ -154,24 +154,58 @@ const updatePatientById = async (req, res) => {
 
 const getPatientsByDoctorId = async (req, res) => {
   try {
+    const { search } = req.query;
     const { doctorId } = req.params;
 
     if (!doctorId || !mongoose.Types.ObjectId.isValid(doctorId)) {
       return res.status(400).json({ error: "Invalid doctor ID" });
     }
 
+    // find patients by doctor ID,
     const patients = await Patient.find({
       $or: [
-        { doctors: doctorId },
-        { referringPhysicians: doctorId }
-      ]
+        { doctors: { $in: [doctorId] } },
+        { referringPhysicians: { $in: [doctorId] } },
+      ],
     })
       .populate("doctors")
       .populate("referringPhysicians")
       .exec();
 
-    const data = patients.map((patient) => patient.transform());
+    // if no search query, return all patients
+    if (!search || search === '""') {
+      const data = patients.map((patient) => patient.transform());
+      return res.status(200).json(data);
+    }
 
+    // Find patients by query
+
+    const filteredPatients = await Patient.find({
+      $and: [
+        {
+          $or: [
+            { firstName: { $regex: search, $options: "i" } },
+            { lastName: { $regex: search, $options: "i" } },
+            { phone: { $regex: search, $options: "i" } },
+            { city: { $regex: search, $options: "i" } },
+            { fileNumber: !isNaN(search) ? parseInt(search) : null },
+            {
+              _id: mongoose.Types.ObjectId.isValid(search)
+                ? new mongoose.Types.ObjectId(search)
+                : null,
+            },
+          ],
+        },
+        {
+          $or: [{ doctors: doctorId }, { referringPhysicians: doctorId }],
+        },
+      ],
+    })
+      .populate("doctors")
+      .populate("referringPhysicians")
+      .exec();
+
+    const data = filteredPatients.map((patient) => patient.transform());
     return res.status(200).json(data);
   } catch (error) {
     console.error(error);
@@ -179,12 +213,11 @@ const getPatientsByDoctorId = async (req, res) => {
   }
 };
 
-
 module.exports = {
   createPatient,
   deletePatientById,
   getPatientById,
   getAllPatients,
   updatePatientById,
-  getPatientsByDoctorId
+  getPatientsByDoctorId,
 };
