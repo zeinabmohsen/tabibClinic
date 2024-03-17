@@ -1,17 +1,17 @@
 import { Provider } from "react-redux";
 import { SessionProvider } from "next-auth/react";
-import store from "../store/configureStore";
 import App from "./App";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "../styles/globals.scss";
 import "../styles/fonts.scss";
+import configureStore from "../store/configureStore";
 
 config.autoAddCss = false;
 
 const ClinIQ = ({ Component, pageProps, domainName }) => {
   return (
-    <Provider store={store}>
+    <Provider store={configureStore().store}>
       <SessionProvider session={pageProps?.session}>
         <App
           Component={Component}

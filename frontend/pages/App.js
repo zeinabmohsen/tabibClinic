@@ -38,12 +38,6 @@ const MyApp = ({ Component, pageProps, domainName }) => {
     }
   }, [isLoadingUser, token, isAuthPage, router, user?._id]);
 
-  useEffect(() => {
-    window.onpopstate = () => {
-      window.location.reload();
-    };
-  }, []);
-
   return (
     <div className="page">
       <AnimatePresence mode="wait">

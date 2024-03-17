@@ -1,18 +1,28 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web and AsyncStorage for react-native
 import combinedReducers from "../reducers/index";
 
-const composeEnhancers =
-  typeof global.window !== "undefined"
-    ? global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-    : compose;
+// Define Redux persist configuration
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["UserData"], };
+
+const persistedReducer = persistReducer(persistConfig, combinedReducers);
+
 const configureStore = () => {
+  const composeEnhancers =
+    typeof window !== "undefined"
+      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+      : compose;
   const store = createStore(
-    combinedReducers,
+    persistedReducer,
     composeEnhancers(applyMiddleware(thunk))
   );
-
-  return store;
+  const persistor = persistStore(store);
+  return { store, persistor };
 };
 
-export default configureStore();
+export default configureStore;
