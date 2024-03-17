@@ -41,6 +41,12 @@ const Patients = () => {
       notes: "",
       doctors: selectedPatient?.doctors,
       referringPhysicians: selectedPatient?.referringPhysicians,
+      pastMedicalHistory: selectedPatient?.pastMedicalHistory,
+      surgicalHistory: selectedPatient?.surgicalHistory,
+      weight: selectedPatient?.weight,
+      insurance: selectedPatient?.insurance,
+      drugHistory: selectedPatient?.drugHistory,
+
     }
   );
 
@@ -430,6 +436,45 @@ const Patients = () => {
             </p>
           </div>
           <div className={styles.row}>
+            <h4>Weight</h4>
+            {editActive ? (
+              <Input
+                type="text"
+                value={newPatientData.weight || selectedPatient?.weight}
+                placeholder=""
+                setValue={(value) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    weight: value,
+                  }));
+                }}
+              />
+            ) : (
+              <p>{selectedPatient?.weight}</p>
+            )}
+          </div>
+
+          {/* Insurance */}
+          <div className={styles.row}>
+            <h4>Insurance</h4>
+            {editActive ? (
+              <Input
+                type="text"
+                value={newPatientData.insurance || selectedPatient?.insurance}
+                placeholder=""
+                setValue={(value) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    insurance: value,
+                  }));
+                }}
+              />
+            ) : (
+              <p>{selectedPatient?.insurance}</p>
+            )}
+          </div>
+
+          <div className={styles.row}>
             <h4>Allergies</h4>
             <p>
               {addActive || editActive ? (
@@ -454,6 +499,61 @@ const Patients = () => {
                 )
               )}
             </p>
+          </div>
+
+          <div className={styles.row}>
+  <h4>Past Medical History</h4>
+  {editActive ? (
+    <textarea
+      value={newPatientData.pastMedicalHistory || selectedPatient?.pastMedicalHistory}
+      onChange={(e) => {
+        setNewPatientData((prev) => ({
+          ...prev,
+          pastMedicalHistory: e.target.value,
+        }));
+      }}
+      rows={5}
+      cols={50}
+    />
+  ) : (
+    <p>{selectedPatient?.pastMedicalHistory}</p>
+  )}
+</div>
+<div className={styles.row}>
+  <h4>Surgical History</h4>
+  {editActive ? (
+    <textarea
+      value={newPatientData.surgicalHistory || selectedPatient?.surgicalHistory}
+      onChange={(e) => {
+        setNewPatientData((prev) => ({
+          ...prev,
+          surgicalHistory: e.target.value,
+        }));
+      }}
+      rows={5}
+      cols={50}
+    />
+  ) : (
+    <p>{selectedPatient?.surgicalHistory}</p>
+  )}
+</div>
+
+          <div className={styles.row}>
+            <h4>Drug History</h4>
+            {editActive ? (
+              <textarea
+                value={newPatientData.drugHistory || selectedPatient?.drugHistory}
+                onChange={(e) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    drugHistory: e.target.value,
+                  }));
+                }}
+                placeholder=""
+              />
+            ) : (
+              <p>{selectedPatient?.drugHistory}</p>
+            )}
           </div>
 
           <div className={styles.row}>
