@@ -10,57 +10,39 @@ import "react-toastify/dist/ReactToastify.css";
 const MyApp = ({ Component, pageProps, domainName }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const [token, setToken] = useState(null);
   const authPages = ["/login", "/register", "/forgot-password", "/"];
   const isAuthPage = authPages.includes(router.pathname);
-  const [token, setToken] = useState(null);
+
   const user = useSelector(({ UserData }) => UserData?.data);
-  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const isLoadingUser = !user?._id;
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
       dispatch(getUser(storedToken));
+    } else if (!isLoadingUser && !isAuthPage) {
+      router.push("/login");
     }
-  }, [dispatch]);
-  
-  useEffect(() => {
-    if (user?._id) {
-      setIsLoadingUser(false);
-    }
-  }, [user]);
-  
-  useEffect(() => {
-    if (!isLoadingUser) {
-      if (token) {
-        if (!user?._id && !isAuthPage) {
-          router.push("/login");
-        } else if (user?._id && isAuthPage) {
-          router.push("/calendar");
-        }
-      } else if (!token && !isAuthPage && !user?._id) {
-        router.push("/login");
-      }
-    } else {
-      if (!isAuthPage) {
-        router.push("/login");
-      }
-    }
-  }, [token, isAuthPage, router, user?._id, isLoadingUser]);
+  }, [dispatch, isLoadingUser, router]);
 
-  // refresh the page on back button click to prevent stale data
+  useEffect(() => {
+    if (!isLoadingUser && !token) {
+      router.push("/login");
+    } else if (!isLoadingUser && !isAuthPage && !user?._id) {
+      router.push("/login");
+    } else if (!isLoadingUser && isAuthPage && user?._id) {
+      router.push("/calendar");
+    }
+  }, [isLoadingUser, token, isAuthPage, router, user?._id]);
+
   useEffect(() => {
     window.onpopstate = () => {
       window.location.reload();
     };
   }, []);
-
-  // refresh page on page change
-  // useEffect(() => {
-  //   router.events.on("routeChangeComplete", () => {
-  //     window.location.reload();
-  //   });
-  // }, [router]);
 
   return (
     <div className="page">
