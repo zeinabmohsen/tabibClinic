@@ -223,160 +223,78 @@ const Patients = () => {
             </p>
           </div>
           <div className={styles.row}>
-            <h4>Primary doctor</h4>
-            <p>
-              {addActive || editActive ? (
-                <Dropdown
-                  value={
-                    newPatientData.doctors
-                      ? {
-                          label:
-                            allDoctors.data.find(
-                              (doctor) =>
-                                doctor?._id ===
-                                newPatientData.doctors[
-                                  newPatientData.doctors.length - 1
-                                ]?._id
-                            )?.firstName +
-                              " " +
-                              allDoctors.data.find(
-                                (doctor) =>
-                                  doctor?._id ===
-                                  newPatientData.doctors[
-                                    newPatientData.doctors.length - 1
-                                  ]?._id
-                              )?.lastName !==
-                            undefined
-                              ? allDoctors.data.find(
-                                  (doctor) =>
-                                    doctor?._id === newPatientData.doctors
-                                )?.firstName +
-                                " " +
-                                allDoctors.data.find(
-                                  (doctor) =>
-                                    doctor?._id === newPatientData.doctors
-                                )?.lastName
-                              : allDoctors.data.find(
-                                  (doctor) =>
-                                    doctor?._id === newPatientData?.doctors
-                                )?.firstName +
-                                " " +
-                                allDoctors.data.find(
-                                  (doctor) =>
-                                    doctor?._id === newPatientData?.doctors
-                                )?.lastName,
-
-                          value: newPatientData.doctors,
-                        }
-                      : null
-                  }
-                  values={allDoctors.data.map((doctor) => ({
-                    label: doctor?.firstName + " " + doctor?.lastName,
-                    value: doctor?._id,
-                  }))}
-                  setValue={(selectedValue) =>
-                    setNewPatientData({
-                      ...newPatientData,
-                      doctors: selectedValue,
-                    })
-                  }
-                />
-              ) : selectedPatient?.doctors?.length > 0 ? (
-                selectedPatient?.doctors[selectedPatient?.doctors?.length - 1]
-                  ?.firstName +
-                " " +
-                selectedPatient?.doctors[selectedPatient?.doctors?.length - 1]
-                  ?.lastName
-              ) : null}
-            </p>
-          </div>
-          <div className={styles.row}>
-            <h4>Secondary Doctor</h4>
-            <p>
-              {addActive || editActive ? (
-                <Dropdown
-                  value={
-                    newPatientData.referringPhysicians
-                      ? {
-                          label:
-                            allDoctors.data.find(
-                              (doctor) =>
-                                doctor?._id ===
-                                newPatientData.referringPhysicians[
-                                  newPatientData.referringPhysicians.length - 1
-                                ]?._id
-                            )?.firstName +
-                              " " +
-                              allDoctors.data.find(
-                                (doctor) =>
-                                  doctor?._id ===
-                                  newPatientData.referringPhysicians[
-                                    newPatientData.referringPhysicians.length -
-                                      1
-                                  ]?._id
-                              )?.lastName !==
-                            undefined
-                              ? allDoctors.data.find(
-                                  (doctor) =>
-                                    doctor?._id ===
-                                    newPatientData.referringPhysicians
-                                )?.firstName +
-                                " " +
-                                allDoctors.data.find(
-                                  (doctor) =>
-                                    doctor?._id ===
-                                    newPatientData.referringPhysicians
-                                )?.lastName
-                              : allDoctors.data.find(
-                                  (doctor) =>
-                                    doctor?._id ===
-                                    newPatientData.referringPhysicians
-                                )?.firstName +
-                                " " +
-                                allDoctors.data.find(
-                                  (doctor) =>
-                                    doctor?._id ===
-                                    newPatientData.referringPhysicians
-                                )?.lastName,
-                          value: newPatientData.referringPhysicians,
-                        }
-                      : null
-                  }
-                  values={allDoctors.data.map((doctor) => ({
-                    label: doctor?.firstName + " " + doctor?.lastName,
-                    value: doctor?._id,
-                  }))}
-                  setValue={(selectedValue) =>
-                    setNewPatientData({
-                      ...newPatientData,
-                      referringPhysicians: selectedValue,
-                    })
-                  }
-                />
-              ) : selectedPatient?.referringPhysicians?.length > 0 &&
-                selectedPatient?.referringPhysicians[
-                  selectedPatient?.referringPhysicians?.length - 1
-                ] !== undefined ? (
-                selectedPatient?.referringPhysicians[
-                  selectedPatient?.referringPhysicians?.length - 1
-                ]?.firstName +
-                " " +
-                selectedPatient?.referringPhysicians[
-                  selectedPatient?.referringPhysicians?.length - 1
-                ]?.lastName
-              ) : allDoctors.data.length > 0 ? (
-                allDoctors.data.find(
-                  (doctor) =>
-                    doctor?._id === selectedPatient?.referringPhysicians
+  <h4>Primary doctor</h4>
+  <p>
+    {addActive || editActive ? (
+      <Dropdown
+        value={
+          newPatientData.doctors
+            ? {
+                label: allDoctors.data.find(
+                  (doctor) => doctor?._id === newPatientData.doctors?._id
                 )?.firstName +
-                " " +
-                allDoctors.data.find(
+                  " " +
+                  allDoctors.data.find(
+                    (doctor) => doctor?._id === newPatientData.doctors?._id
+                  )?.lastName,
+                value: newPatientData.doctors,
+              }
+            : null
+        }
+        values={allDoctors.data.map((doctor) => ({
+          label: doctor?.firstName + " " + doctor?.lastName,
+          value: doctor?._id,
+        }))}
+        setValue={(selectedValue) =>
+          setNewPatientData({ ...newPatientData, doctors: selectedValue })
+        }
+      />
+    ) : newPatientData.doctors ? (
+      newPatientData.doctors.firstName + " " + newPatientData.doctors.lastName
+    ) : null}
+  </p>
+</div>
+
+<div className={styles.row}>
+  <h4>Secondary Doctor</h4>
+  <p>
+    {addActive || editActive ? (
+      <Dropdown
+        value={
+          newPatientData.referringPhysicians
+            ? {
+                label: allDoctors.data.find(
                   (doctor) =>
-                    doctor?._id === selectedPatient?.referringPhysicians
-                )?.lastName
-              ) : null}
-            </p>
-          </div>
+                    doctor?._id === newPatientData.referringPhysicians?._id
+                )?.firstName +
+                  " " +
+                  allDoctors.data.find(
+                    (doctor) =>
+                      doctor?._id === newPatientData.referringPhysicians?._id
+                  )?.lastName,
+                value: newPatientData.referringPhysicians,
+              }
+            : null
+        }
+        values={allDoctors.data.map((doctor) => ({
+          label: doctor?.firstName + " " + doctor?.lastName,
+          value: doctor?._id,
+        }))}
+        setValue={(selectedValue) =>
+          setNewPatientData({
+            ...newPatientData,
+            referringPhysicians: selectedValue,
+          })
+        }
+      />
+    ) : newPatientData.referringPhysicians ? (
+      newPatientData.referringPhysicians.firstName +
+      " " +
+      newPatientData.referringPhysicians.lastName
+    ) : null}
+  </p>
+</div>
+
           <div className={styles.row}>
             <h4>Gender</h4>
             <div>
