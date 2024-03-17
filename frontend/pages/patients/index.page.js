@@ -87,7 +87,7 @@ const PatientsTable = () => {
                 onClick={() => router.push(`/patients/${patient?._id}`)}
               >
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {patient?._id}
+                  {patient?.fileNumber}
                 </td>
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {patient?.firstName} {patient?.middleName} {patient?.lastName}

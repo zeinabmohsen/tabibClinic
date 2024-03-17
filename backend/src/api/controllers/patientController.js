@@ -44,7 +44,6 @@ const createPatient = async (req, res) => {
         newPatient.doctors.push(doctorsArray[i]);
       }
     }
-    
 
     if (referringPhysicians) {
       const referringPhysiciansArray = referringPhysicians.split(",");
@@ -68,7 +67,10 @@ const getPatientById = async (req, res) => {
   try {
     const patientId = req.params.id;
 
-    const patient = await Patient.findById(patientId);
+    const patient = await Patient.findById(patientId)
+      .populate("doctors")
+      .populate("referringPhysicians")
+      .exec();
     if (!patient) {
       return res.status(404).json({ error: "Patient not found" });
     }
@@ -86,7 +88,10 @@ const getAllPatients = async (req, res) => {
   try {
     const { search } = req.query;
     if (!search || search === '""') {
-      const patients = await Patient.find();
+      const patients = await Patient.find()
+        .populate("doctors")
+        .populate("referringPhysicians")
+        .exec();
       const data = patients.map((patient) => patient.transform());
       return res.status(200).json(data);
     }
@@ -139,7 +144,9 @@ const updatePatientById = async (req, res) => {
     const patientId = req.params.id;
     const updateData = req.body;
 
-    const patient = await Patient.findById(patientId);
+    const patient = await Patient.findById(patientId)
+      .populate(["doctors", "referringPhysicians"])
+      .exec();
     if (!patient) {
       return res.status(404).json({ error: "Patient not found" });
     }
