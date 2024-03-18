@@ -56,8 +56,7 @@ const ScheduleTable = () => {
       <button
         onClick={async () => {
           await dispatch(logout());
-          router.push("/");
-          window.location.reload();
+          router.push("/login");
         }}
       >
         Logout
