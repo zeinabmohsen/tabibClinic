@@ -14,13 +14,39 @@ export default function AddAttachmentModal({ selectedRecord, setAttachModal }) {
 
   const handleAddAttachment = useCallback(async () => {
     try {
+      //uploading file
       const fileData = new FormData();
       fileData.append("file", file);
       const attachment = await axios.post("/upload/localFile", fileData);
+      const filePath = attachment.data.filePath;
 
+      //uploading folder
+      const folderData = new FormData();
+      folderData.append("folderName", "test");
+      // folder[0].webkitRelativePath.split("/")[0]); //setting folder name
+
+      // add the original folder path to the form data
+      folderData.append("folderPath", folder[0]);
+
+      folder.forEach((file) => {
+        folderData.append("files", file);
+      });
+
+      const uploadedFolder = await axios.post(
+        "/upload/localFolder",
+        folderData
+      );
+      const folderPath = uploadedFolder.data.folderPath.replace("./", "");
+
+      // create a new attachments array to loop through and add to the record
+      const attachments = [];
+      attachments.push(filePath);
+      attachments.push(folderPath);
+
+      // add the attachments to the record
       await dispatch(
         addAttachmentToRecord(selectedRecord, {
-          attachment: attachment.data.filePath,
+          attachments,
         })
       );
 
@@ -28,42 +54,11 @@ export default function AddAttachmentModal({ selectedRecord, setAttachModal }) {
     } catch (error) {
       console.log(error);
     }
-  }, [dispatch, file, selectedRecord]);
+  }, [dispatch, file, selectedRecord, folder, setAttachModal]);
 
   const handleSetFile = (e) => {
     setFile(e.target.files[0]);
   };
-  console.log("folder", folder);
-
-  const handleFolderUpload = useCallback(async () => {
-    try {
-      const folderData = new FormData();
-      folderData.append("folderName", "tes2t");
-      // folder[0].webkitRelativePath.split("/")[0]); //setting folder name
-
-      // add the original folder path to the form data
-      folderData.append("folderPath", folder[0])
-
-
-      folder.forEach((file) => {
-        folderData.append("files", file);
-      });
-
-      const attachment = await axios.post("/upload/localFolder", folderData);
-
-      console.log(attachment);
-
-      // await dispatch(
-      //   addAttachmentToRecord(selectedRecord, {
-      //     attachment: attachment.data.filePath,
-      //   })
-      // );
-
-      // setAttachModal(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [dispatch, folder, selectedRecord]);
 
   const handleSetFolder = (e) => {
     let files = e.target.files;
@@ -80,8 +75,6 @@ export default function AddAttachmentModal({ selectedRecord, setAttachModal }) {
       className={styles.container}
       onSubmit={(e) => {
         e.preventDefault();
-        // handleAddAttachment();
-        handleFolderUpload();
       }}
     >
       <div className={styles.uploadContainer}>
@@ -189,8 +182,7 @@ export default function AddAttachmentModal({ selectedRecord, setAttachModal }) {
           if (!file && folder.length === 0) {
             return;
           }
-          // handleAddAttachment();
-          handleFolderUpload(); 
+          handleAddAttachment();
         }}
       >
         Create

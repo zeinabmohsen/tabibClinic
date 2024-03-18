@@ -137,7 +137,7 @@ const addPrescriptionsToMedicalRecord = async (req, res) => {
 const uploadAttachmentToMedicalRecord = async (req, res) => {
   try {
     const { medicalRecordId } = req.params;
-    const { attachment } = req.body;
+    const { attachment, attachments } = req.body;
 
     // Check if medical record exists
     const medicalRecord = await MedicalRecord.findById(medicalRecordId);
@@ -146,7 +146,7 @@ const uploadAttachmentToMedicalRecord = async (req, res) => {
     }
 
     // check if attachment is provided
-    if (!attachment) {
+    if (!attachment && !attachments) {
       return res.status(400).json({ message: "Attachment is required" });
     }
 
@@ -156,6 +156,13 @@ const uploadAttachmentToMedicalRecord = async (req, res) => {
       { $push: { attachments: { url: attachment } } },
       { new: true }
     );
+
+    // if there are multiple attachments
+    if (attachments) {
+      attachments.forEach((attachment) => {
+        updatedMedicalRecord.attachments.push({ url: attachment });
+      });
+    }
 
     res.status(200).json(updatedMedicalRecord);
   } catch (error) {
@@ -189,11 +196,11 @@ const deleteMedicalRecord = async (req, res) => {
 const updateMedicalRecord = async (req, res) => {
   try {
     const { medicalRecordId } = req.params;
-    const { patient, title, description, fees, services , notes } = req.body;
+    const { patient, title, description, fees, services, notes } = req.body;
 
     const updatedRecord = await MedicalRecord.findByIdAndUpdate(
       medicalRecordId,
-      { patient, title, description, fees, services ,notes },
+      { patient, title, description, fees, services, notes },
       { new: true }
     );
 
