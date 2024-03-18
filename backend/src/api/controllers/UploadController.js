@@ -83,8 +83,6 @@ const uploadFolder = (req, res) => {
       return;
     }
 
-    console.log("files:", files);
-
     const folderName = fields.folderName;
     const folderPath = `./uploads/${folderName}`;
 
