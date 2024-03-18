@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faFolder, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "../../utils/Http";
 import { addAttachmentToRecord } from "../../actions/MedicalRecordActions";
+import classNames from "classnames";
 
 export default function AddAttachmentModal({ selectedRecord, setAttachModal }) {
   const dispatch = useDispatch();
@@ -32,28 +33,37 @@ export default function AddAttachmentModal({ selectedRecord, setAttachModal }) {
   const handleSetFile = (e) => {
     setFile(e.target.files[0]);
   };
+  console.log("folder", folder);
 
-  // useEffect(() => {
-  //   if (folder.length > 0) {
-  //     const folderData = new FormData();
-  //     folder.forEach((file) => {
-  //       folderData.append("file", file);
-  //     });
-  //     axios
-  //       .post("/upload/localFile", folderData)
-  //       .then((res) => {
-  //         dispatch(
-  //           addAttachmentToRecord(selectedRecord, {
-  //             attachment: res.data.filePath,
-  //           })
-  //         );
-  //         setAttachModal(false);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [folder, dispatch, selectedRecord, setAttachModal]);
+  const handleFolderUpload = useCallback(async () => {
+    try {
+      const folderData = new FormData();
+      folderData.append("folderName", "tes2t");
+      // folder[0].webkitRelativePath.split("/")[0]); //setting folder name
+
+      // add the original folder path to the form data
+      folderData.append("folderPath", folder[0])
+
+
+      folder.forEach((file) => {
+        folderData.append("files", file);
+      });
+
+      const attachment = await axios.post("/upload/localFolder", folderData);
+
+      console.log(attachment);
+
+      // await dispatch(
+      //   addAttachmentToRecord(selectedRecord, {
+      //     attachment: attachment.data.filePath,
+      //   })
+      // );
+
+      // setAttachModal(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch, folder, selectedRecord]);
 
   const handleSetFolder = (e) => {
     let files = e.target.files;
@@ -70,7 +80,8 @@ export default function AddAttachmentModal({ selectedRecord, setAttachModal }) {
       className={styles.container}
       onSubmit={(e) => {
         e.preventDefault();
-        handleAddAttachment();
+        // handleAddAttachment();
+        handleFolderUpload();
       }}
     >
       <div className={styles.uploadContainer}>
@@ -170,7 +181,17 @@ export default function AddAttachmentModal({ selectedRecord, setAttachModal }) {
 
       <button
         type="submit"
-        className="px-4 py-2 bg-indigo-900 text-white rounded hover:bg-indigo-800 focus:outline-none focus:bg-indigo-800 w-full"
+        className={classNames({
+          [styles.button]: true,
+          [styles.disabled]: !file && folder.length === 0,
+        })}
+        onClick={() => {
+          if (!file && folder.length === 0) {
+            return;
+          }
+          // handleAddAttachment();
+          handleFolderUpload(); 
+        }}
       >
         Create
       </button>
