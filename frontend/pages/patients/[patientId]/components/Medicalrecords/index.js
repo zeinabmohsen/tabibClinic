@@ -223,7 +223,7 @@ const Medicalrecords = ({
         }
       />
       <Modal
-        active={true}
+        active={attachModal}
         setActive={setAttachModal}
         title={`Attach Medical Record`}
         children={

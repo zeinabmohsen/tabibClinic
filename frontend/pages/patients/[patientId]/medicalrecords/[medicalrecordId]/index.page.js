@@ -82,6 +82,13 @@ const MedicalRecordDetails = () => {
           </span>
         </div>
         <div className="flex items-center mb-3">
+          <h3 className="text-lg font-semibold text-gray-800">Patient:</h3>
+          <span className="ml-4 text-gray-800">
+            {medicalRecord?.patient?.firstName}{" "}
+            {medicalRecord?.patient?.lastName}
+          </span>
+        </div>
+        <div className="flex items-center mb-3">
           <h3 className="text-lg font-semibold text-gray-800">Date:</h3>
           <span className="ml-4 text-gray-800">
             {medicalRecord?.date?.toString().slice(0, 10)}
