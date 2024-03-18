@@ -50,6 +50,7 @@ export default function zCreateAppointmentModal({
     dob: "",
     city: "",
     secondPhone: "",
+    doctors: `${allDoctors?.data[0]?._id}`,
   });
 
   const create = useCallback(async () => {
@@ -97,6 +98,7 @@ export default function zCreateAppointmentModal({
     dispatch(getAllPatients(search));
   }, [search]);
 
+
   return (
     <form
       onSubmit={(e) => {
@@ -132,12 +134,16 @@ export default function zCreateAppointmentModal({
               label: doctor?.firstName + " " + doctor?.lastName,
               value: doctor?._id,
             }))}
-            setValue={(selectedValue) =>
+            setValue={(selectedValue) => {
               setFormData({
                 ...formData,
                 doctor: selectedValue,
-              })
-            }
+              });
+              setNewPatientData({
+                ...newPatientData,
+                doctors: selectedValue,
+              });
+            }}
           />
         </div>
         <div className="mb-3">

@@ -46,7 +46,6 @@ const Patients = () => {
       weight: selectedPatient?.weight,
       insurance: selectedPatient?.insurance,
       drugHistory: selectedPatient?.drugHistory,
-
     }
   );
 
@@ -229,77 +228,88 @@ const Patients = () => {
             </p>
           </div>
           <div className={styles.row}>
-  <h4>Primary doctor</h4>
-  <p>
-    {addActive || editActive ? (
-      <Dropdown
-        value={
-          newPatientData.doctors
-            ? {
-                label: allDoctors.data.find(
-                  (doctor) => doctor?._id === newPatientData.doctors?._id
-                )?.firstName +
-                  " " +
-                  allDoctors.data.find(
-                    (doctor) => doctor?._id === newPatientData.doctors?._id
-                  )?.lastName,
-                value: newPatientData.doctors,
-              }
-            : null
-        }
-        values={allDoctors.data.map((doctor) => ({
-          label: doctor?.firstName + " " + doctor?.lastName,
-          value: doctor?._id,
-        }))}
-        setValue={(selectedValue) =>
-          setNewPatientData({ ...newPatientData, doctors: selectedValue })
-        }
-      />
-    ) : newPatientData.doctors ? (
-      newPatientData.doctors.firstName + " " + newPatientData.doctors.lastName
-    ) : null}
-  </p>
-</div>
+            <h4>Primary doctor</h4>
+            <p>
+              {addActive || editActive ? (
+                <Dropdown
+                  value={
+                    newPatientData.doctors
+                      ? {
+                          label:
+                            allDoctors.data.find(
+                              (doctor) =>
+                                doctor?._id === newPatientData.doctors?._id
+                            )?.firstName +
+                            " " +
+                            allDoctors.data.find(
+                              (doctor) =>
+                                doctor?._id === newPatientData.doctors?._id
+                            )?.lastName,
+                          value: newPatientData.doctors,
+                        }
+                      : null
+                  }
+                  values={allDoctors.data.map((doctor) => ({
+                    label: doctor?.firstName + " " + doctor?.lastName,
+                    value: doctor?._id,
+                  }))}
+                  setValue={(selectedValue) =>
+                    setNewPatientData({
+                      ...newPatientData,
+                      doctors: selectedValue,
+                    })
+                  }
+                />
+              ) : selectedPatient.doctors ? (
+                selectedPatient.doctors.firstName +
+                " " +
+                selectedPatient.doctors.lastName
+              ) : null}
+            </p>
+          </div>
 
-<div className={styles.row}>
-  <h4>Secondary Doctor</h4>
-  <p>
-    {addActive || editActive ? (
-      <Dropdown
-        value={
-          newPatientData.referringPhysicians
-            ? {
-                label: allDoctors.data.find(
-                  (doctor) =>
-                    doctor?._id === newPatientData.referringPhysicians?._id
-                )?.firstName +
-                  " " +
-                  allDoctors.data.find(
-                    (doctor) =>
-                      doctor?._id === newPatientData.referringPhysicians?._id
-                  )?.lastName,
-                value: newPatientData.referringPhysicians,
-              }
-            : null
-        }
-        values={allDoctors.data.map((doctor) => ({
-          label: doctor?.firstName + " " + doctor?.lastName,
-          value: doctor?._id,
-        }))}
-        setValue={(selectedValue) =>
-          setNewPatientData({
-            ...newPatientData,
-            referringPhysicians: selectedValue,
-          })
-        }
-      />
-    ) : newPatientData.referringPhysicians ? (
-      newPatientData.referringPhysicians.firstName +
-      " " +
-      newPatientData.referringPhysicians.lastName
-    ) : null}
-  </p>
-</div>
+          <div className={styles.row}>
+            <h4>Secondary Doctor</h4>
+            <p>
+              {addActive || editActive ? (
+                <Dropdown
+                  value={
+                    newPatientData.referringPhysicians
+                      ? {
+                          label:
+                            allDoctors.data.find(
+                              (doctor) =>
+                                doctor?._id ===
+                                newPatientData.referringPhysicians?._id
+                            )?.firstName +
+                            " " +
+                            allDoctors.data.find(
+                              (doctor) =>
+                                doctor?._id ===
+                                newPatientData.referringPhysicians?._id
+                            )?.lastName,
+                          value: newPatientData.referringPhysicians,
+                        }
+                      : null
+                  }
+                  values={allDoctors.data.map((doctor) => ({
+                    label: doctor?.firstName + " " + doctor?.lastName,
+                    value: doctor?._id,
+                  }))}
+                  setValue={(selectedValue) =>
+                    setNewPatientData({
+                      ...newPatientData,
+                      referringPhysicians: selectedValue,
+                    })
+                  }
+                />
+              ) : selectedPatient?.referringPhysicians ? (
+                selectedPatient?.referringPhysicians.firstName +
+                " " +
+                selectedPatient?.referringPhysicians.lastName
+              ) : null}
+            </p>
+          </div>
 
           <div className={styles.row}>
             <h4>Gender</h4>
@@ -502,47 +512,55 @@ const Patients = () => {
           </div>
 
           <div className={styles.row}>
-  <h4>Past Medical History</h4>
-  {editActive ? (
-    <textarea
-      value={newPatientData.pastMedicalHistory || selectedPatient?.pastMedicalHistory}
-      onChange={(e) => {
-        setNewPatientData((prev) => ({
-          ...prev,
-          pastMedicalHistory: e.target.value,
-        }));
-      }}
-      rows={5}
-      cols={50}
-    />
-  ) : (
-    <p>{selectedPatient?.pastMedicalHistory}</p>
-  )}
-</div>
-<div className={styles.row}>
-  <h4>Surgical History</h4>
-  {editActive ? (
-    <textarea
-      value={newPatientData.surgicalHistory || selectedPatient?.surgicalHistory}
-      onChange={(e) => {
-        setNewPatientData((prev) => ({
-          ...prev,
-          surgicalHistory: e.target.value,
-        }));
-      }}
-      rows={5}
-      cols={50}
-    />
-  ) : (
-    <p>{selectedPatient?.surgicalHistory}</p>
-  )}
-</div>
+            <h4>Past Medical History</h4>
+            {editActive ? (
+              <textarea
+                value={
+                  newPatientData.pastMedicalHistory ||
+                  selectedPatient?.pastMedicalHistory
+                }
+                onChange={(e) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    pastMedicalHistory: e.target.value,
+                  }));
+                }}
+                rows={5}
+                cols={50}
+              />
+            ) : (
+              <p>{selectedPatient?.pastMedicalHistory}</p>
+            )}
+          </div>
+          <div className={styles.row}>
+            <h4>Surgical History</h4>
+            {editActive ? (
+              <textarea
+                value={
+                  newPatientData.surgicalHistory ||
+                  selectedPatient?.surgicalHistory
+                }
+                onChange={(e) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    surgicalHistory: e.target.value,
+                  }));
+                }}
+                rows={5}
+                cols={50}
+              />
+            ) : (
+              <p>{selectedPatient?.surgicalHistory}</p>
+            )}
+          </div>
 
           <div className={styles.row}>
             <h4>Drug History</h4>
             {editActive ? (
               <textarea
-                value={newPatientData.drugHistory || selectedPatient?.drugHistory}
+                value={
+                  newPatientData.drugHistory || selectedPatient?.drugHistory
+                }
                 onChange={(e) => {
                   setNewPatientData((prev) => ({
                     ...prev,

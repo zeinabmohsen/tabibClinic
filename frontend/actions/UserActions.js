@@ -26,11 +26,11 @@ export const login = (formData, router) => async (dispatch) => {
       if (data.token) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
         await localStorage.setItem("token", data.token);
-        router.push("/calendar");
       }
       if (data.token.refreshToken) {
         await localStorage.setItem("refreshToken", data.token.refreshToken);
       }
+      router.push("/calendar");
 
       await dispatch({
         type: ACTIONS.LOGIN_USER,

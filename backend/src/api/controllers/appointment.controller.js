@@ -81,6 +81,7 @@ const createAppointment = async (req, res) => {
       city,
       gender,
       secondPhone,
+      doctors,
     } = req.body;
 
     let existingPatient;
@@ -110,11 +111,15 @@ const createAppointment = async (req, res) => {
         dob,
         city,
         gender,
-        secondPhone
+        secondPhone,
+        doctors,
       };
-      const newPatientInstance = await new Patient(newPatientData);
-      existingPatient = await newPatientInstance.save();
+
+      const newPatientInstance = await Patient.createPatient(newPatientData);
+      existingPatient = newPatientInstance;
     }
+
+    console.log("existingPatient", existingPatient);
 
     const newAppointment = new Appointment({
       doctor,
