@@ -1,11 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "../common/Navbar";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../actions/UserActions";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 const MyApp = ({ Component, pageProps, domainName }) => {
   const router = useRouter();
