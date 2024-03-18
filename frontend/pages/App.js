@@ -18,25 +18,33 @@ const MyApp = ({ Component, pageProps, domainName }) => {
   const user = useSelector(({ UserData }) => UserData?.data);
   const isLoadingUser = !user?._id;
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
-      dispatch(getUser(storedToken));
-    } else if (!isLoadingUser && !isAuthPage) {
-      router.push("/login");
-    }
-  }, [dispatch, isLoadingUser, router]);
+  useEffect(
+    () => {
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        setToken(storedToken);
+        dispatch(getUser(storedToken));
+      } else if (!isLoadingUser && !isAuthPage) {
+        router.push("/login");
+      }
+    },
+    [
+      // dispatch, isLoadingUser, isAuthPage, token, user?._id
+    ]
+  );
 
-  useEffect(() => {
-    if (!isLoadingUser && !token) {
-      router.push("/login");
-    } else if (!isLoadingUser && !isAuthPage && !user?._id) {
-      router.push("/login");
-    } else if (!isLoadingUser && isAuthPage && user?._id) {
-      router.push("/calendar");
-    }
-  }, [isLoadingUser, token, isAuthPage, router, user?._id]);
+  useEffect(
+    () => {
+      if (!isLoadingUser && !token && !isAuthPage) {
+        router.push("/login");
+      } else if (!isLoadingUser && !isAuthPage && !user?._id) {
+        router.push("/login");
+      }
+    },
+    [
+      // isLoadingUser, token, isAuthPage, user?._id
+    ]
+  );
 
   return (
     <div className="page">

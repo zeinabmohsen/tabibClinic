@@ -13,16 +13,8 @@ const SignInForm = () => {
   });
 
   const handleSubmit = useCallback(async () => {
-    await dispatch(
-      login(
-        {
-          email: formData.email,
-          password: formData.password,
-        },
-        router
-      )
-    );
-  }, [formData, dispatch, router]);
+    await dispatch(login(formData, router));
+  }, [dispatch, formData, router]);
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">

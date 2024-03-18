@@ -14,43 +14,37 @@ if (token) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
-export const login =
-  ({ email, password }, router) =>
-  async (dispatch) => {
-    try {
-      const { data } = await axios.post("/auth/login", {
-        email,
-        password,
-      });
+export const login = (formData, router) => async (dispatch) => {
+  try {
+    const { data } = await axios.post("/auth/login", {
+      ...formData,
+    });
 
-      console.log(data, "data");
+    if (data.success) {
+      await toast.success("You have successfully logged in!");
 
-      if (data.success) {
-        toast.success("You have successfully logged in!");
-
-        if (data.token) {
-          axios.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${data.token}`;
-          localStorage.setItem("token", data.token);
-        }
-        if (data.token.refreshToken) {
-          localStorage.setItem("refreshToken", data.token.refreshToken);
-        }
-
-        dispatch({
-          type: ACTIONS.LOGIN_USER,
-          data: data.data,
-        });
+      if (data.token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+        await localStorage.setItem("token", data.token);
         router.push("/calendar");
-      } else {
-        toast.error("Invalid email or password!");
       }
-    } catch (error) {
-      console.log(error, "error");
+      if (data.token.refreshToken) {
+        await localStorage.setItem("refreshToken", data.token.refreshToken);
+      }
+
+      await dispatch({
+        type: ACTIONS.LOGIN_USER,
+        data: data.data,
+      });
+    } else {
       toast.error("Invalid email or password!");
     }
-  };
+  } catch (error) {
+    console.log(error, "error");
+    toast.error("Invalid email or password!");
+    return;
+  }
+};
 
 export const getUser = (token) => async (dispatch) => {
   try {
