@@ -50,7 +50,6 @@ export default function AddMRServices({ setActive, selectedRecord }) {
         </label>
         <div className="flex justify-center w-50 mx-auto mb-3 ">
           <Dropdown
-            disabled={true}
             value={
               formData.doctor
                 ? {
