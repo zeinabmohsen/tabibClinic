@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPatientById } from "../../../../actions/PatientActions";
 
 function AddPrescriptionForm() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { patientId } = router.query;
   const [prescriptions, setPrescriptions] = useState([]); // Array of objects with { medication, dosage, instructions }
   const [newMedication, setNewMedication] = useState("");
   const [newDosage, setNewDosage] = useState("");
   const [newInstructions, setNewInstructions] = useState("");
   const [editModeIndex, setEditModeIndex] = useState(null);
+
+  const patientData = useSelector(
+    ({ PatientData }) => PatientData?.selectedPatient?.data
+  );
 
   const handleAddMedication = () => {
     if (editModeIndex !== null) {
@@ -119,12 +129,19 @@ function AddPrescriptionForm() {
 };
 
 
+  useEffect(() => {
+    dispatch(getPatientById(patientId));
+  }, [dispatch, patientId]);
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4 my-4">
       <h2 className="text-lg font-semibold text-gray-900 text-center">
         Add Prescriptions
       </h2>
       <div className="mt-4">
+        <h2 className="text-lg font-semibold text-gray-900">
+          Patient: {patientData?.firstName} {patientData?.lastName}
+        </h2>
         {prescriptions.length > 0 && (
           <ul className="list-none px-2">
             {prescriptions.map((medication, index) => (
