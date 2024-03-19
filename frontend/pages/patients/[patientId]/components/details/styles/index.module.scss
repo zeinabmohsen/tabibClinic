@@ -69,6 +69,25 @@
           min-height: 1.3rem;
         }
       }
+
+      .addPrimaryDoctor,
+      .addSecondaryDoctor {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .icon {
+          cursor: pointer;
+          color: #2b3344;
+          transition: 0.3s;
+
+          &:hover {
+            color: red;
+          }
+
+        }
+
+      }
     }
 
 

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
   faPlusSquare,
+  faTrash,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import Input from "../../../../../common/Input";
@@ -228,7 +229,21 @@ const Patients = () => {
             </p>
           </div>
           <div className={styles.row}>
-            <h4>Primary doctor</h4>
+            <div className={styles.addPrimaryDoctor}>
+              <h4>Primary doctor</h4>
+              {(addActive || editActive) && (
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => {
+                    setNewPatientData((prev) => ({
+                      ...prev,
+                      doctors: null,
+                    }));
+                  }}
+                  className={styles.icon}
+                />
+              )}
+            </div>
             <p>
               {addActive || editActive ? (
                 <Dropdown
@@ -269,7 +284,21 @@ const Patients = () => {
           </div>
 
           <div className={styles.row}>
-            <h4>Secondary Doctor</h4>
+            <div className={styles.addSecondaryDoctor}>
+              <h4>Secondary Doctor</h4>{" "}
+              {(addActive || editActive) && (
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => {
+                    setNewPatientData((prev) => ({
+                      ...prev,
+                      referringPhysicians: null,
+                    }));
+                  }}
+                  className={styles.icon}
+                />
+              )}
+            </div>
             <p>
               {addActive || editActive ? (
                 <Dropdown

@@ -119,8 +119,6 @@ const createAppointment = async (req, res) => {
       existingPatient = newPatientInstance;
     }
 
-    console.log("existingPatient", existingPatient);
-
     const newAppointment = new Appointment({
       doctor,
       patient: newPatient ? existingPatient._id : existingPatient,
