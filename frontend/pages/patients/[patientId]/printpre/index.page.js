@@ -47,69 +47,77 @@ function AddPrescriptionForm() {
   };
 
   const handlePrint = () => {
+
+
+    // Function to convert number to Roman numeral
+    const toRoman = (num) => {
+        const romanNumerals = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+        return romanNumerals[num];
+    };
+
     // Create a printable document
     const printDocument = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Prescription Form</title>
-        <style>
-          /* Styles */
-        </style>
-      </head>
-      <body>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Prescription Form</title>
+            <style>
+            @media print {
+                body {
+                    font-family: Arial, sans-serif;
+                    background-image: url('/images/presc.jpg');
+                    background-size: 559px 793px; /* Set background size to A5 dimensions */
+                    background-repeat: no-repeat;
+                    margin: 0;
+                    padding: 0;
+                }
+                @page {
+                    size: A5;
+                    margin: 0;
+                }
+                .container {
+                    margin-top: 200px;
+                    margin-left: 20px; 
+                }
+            </style>
+        </head>
+        <body>
         <div class="container">
-          <h2>Prescription </h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Medication</th>
-                <th>Dosage</th>
-                <th>Instructions</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${prescriptions
-                .map(
-                  (medication, index) => `
-                    <tr>
-                      <td>${medication.medication}</td>
-                      <td>${medication.dosage}</td>
-                      <td>${medication.instructions}</td>
-                      <td>
-                        <button type="button" onclick="handleEdit(${index})">Edit</button>
-                        <button type="button" onclick="handleRemove(${index})">Remove</button>
-                      </td>
-                    </tr>`
-                )
+        <p>Please</p>
+        
+            ${prescriptions
+                .map((medication, index) => `
+                    <div>
+                        <p> ${toRoman(index + 1)}: ${medication.medication}  ${medication.dosage ? `,( ${medication.dosage} )` : ''}</p>
+                            ${medication.instructions ? ` ${medication.instructions} ` : ''}
+                    </div>
+                `)
                 .join("")}
-            </tbody>
-          </table>
         </div>
         <script>
-          function handleEdit(index) {
-            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'edit', index: index }));
-          }
-          
-          function handleRemove(index) {
-            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'remove', index: index }));
-          }
+            function handleEdit(index) {
+                window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'edit', index: index }));
+            }
+            function handleRemove(index) {
+                window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'remove', index: index }));
+            }
         </script>
-      </body>
-      </html>
+    </body>
+
+        </html>
     `;
-  
+
     // Open a new window with the printable document
     const win = window.open("", "_blank");
     win.document.write(printDocument);
     win.document.close();
-  
+
     // Directly open print dialog
     win.print();
-  };
+};
+
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 my-4">
