@@ -8,7 +8,8 @@ import combinedReducers from "../reducers/index";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["UserData"], };
+  whitelist: ["UserData"],
+};
 
 const persistedReducer = persistReducer(persistConfig, combinedReducers);
 

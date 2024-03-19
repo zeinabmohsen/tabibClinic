@@ -113,7 +113,7 @@ const PatientsTable = () => {
                     <td className="px-6 py-4">
                       {patient?.doctors && (
                         <div>
-                          {patient.doctors.firstName} {patient.doctors.lastName}
+                          {patient?.doctors?.firstName} {patient?.doctors?.lastName}
                         </div>
                       )}
                     </td>

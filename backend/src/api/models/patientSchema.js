@@ -40,17 +40,15 @@ const patientSchema = new mongoose.Schema(
     city: {
       type: String,
     },
-    doctors: 
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    referringPhysicians: 
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    
+    doctors: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    referringPhysicians: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+
     medicalRecords: [
       {
         type: mongoose.Schema.Types.ObjectId,

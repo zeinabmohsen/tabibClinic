@@ -2,7 +2,7 @@ import axios from "../utils/Http"; // Assuming you have configured Axios properl
 import { toast } from "react-toastify";
 
 export const ACTIONS = {
-  GET_ALL_DOCTORS: "GET_ALL_DOCTORS",
+  GET_ALL_DOCTORS: "/doctor",
   GET_DOCTOR: "/doctor/:id",
   CREATE_DOCTOR: "/doctor",
   UPDATE_DOCTOR: "/doctor/:id",
