@@ -123,7 +123,7 @@ export default function Calendar() {
 
   useEffect(() => {
     if (
-      selectedDoctor === 0 &&
+      (selectedDoctor === 0 || selectedDoctor === "all") &&
       (user?.role === "admin" || user?.role === "secretary")
     ) {
       dispatch(getAllAppointments());

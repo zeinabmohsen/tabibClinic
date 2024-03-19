@@ -5,7 +5,6 @@ const {
   getAppointmentValidator,
   updateAppointmentValidator,
   deleteAppointmentValidator,
-  getAppointmentByDoctorValidator,
   getAppointmentByPatientValidator,
   updateAppointmentStatusValidator,
 } = require("../../utils/validators/appointmentValidator");
@@ -33,7 +32,6 @@ router
 router
   .get(
     "/doctor/:id",
-    getAppointmentByDoctorValidator,
     getAppointmentsByDoctorId
   )
   .get(
