@@ -192,7 +192,6 @@ const deleteMedicalRecord = async (req, res) => {
   }
 };
 
-// Function to update a medical record
 const updateMedicalRecord = async (req, res) => {
   try {
     const { medicalRecordId } = req.params;
@@ -213,7 +212,6 @@ const updateMedicalRecord = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 // Function to get a medical record by ID
 const getMedicalRecordById = async (req, res) => {
   try {

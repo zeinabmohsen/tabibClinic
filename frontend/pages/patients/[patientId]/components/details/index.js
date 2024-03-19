@@ -260,10 +260,10 @@ const Patients = () => {
                     })
                   }
                 />
-              ) : selectedPatient.doctors ? (
-                selectedPatient.doctors.firstName +
+              ) : selectedPatient?.doctors ? (
+                selectedPatient?.doctors?.firstName +
                 " " +
-                selectedPatient.doctors.lastName
+                selectedPatient?.doctors?.lastName
               ) : null}
             </p>
           </div>

@@ -28,7 +28,7 @@ const medicalRecordSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: true,
+
     },
     attachments: [
       {

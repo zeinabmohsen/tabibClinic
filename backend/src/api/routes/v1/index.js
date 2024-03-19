@@ -24,7 +24,7 @@ router.get("/status", (req, res) => res.send("OK"));
 
 router.use("/auth", AuthRoute);
 router.use("/admin", protect, AdminRoute);
-router.use("/patient",  patientRoute);
+router.use("/patient",protect,  patientRoute);
 router.use("/doctor", protect, doctorRoute);
 router.use("/record",  RecordRoute);
 router.use("/prescription", protect, PrescriptionsRoute);

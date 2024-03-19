@@ -109,21 +109,7 @@ const MedicalRecordDetails = () => {
             disabled={!isEditing}
           />
         </div>
-        <div className="mb-3">
-          <h3 className="text-lg font-semibold text-gray-800">Notes:</h3>
-          <textarea
-            rows="4"
-            className="w-full border rounded-md p-2"
-            value={medicalRecord?.notes}
-            onChange={(e) =>
-              setMedicalRecord({
-                ...medicalRecord,
-                notes: e.target.value,
-              })
-            }
-            disabled={!isEditing}
-          />
-        </div>
+    
         <div className="space-y-4">
           {medicalRecord?.attachments?.length > 0 && (
             <div>
@@ -212,6 +198,21 @@ const MedicalRecordDetails = () => {
               disabled={!isEditing}
             />
           </div>
+          <div className=" flex mb-3">
+          <h3 className="text-lg font-semibold text-gray-800">Notes:</h3>
+          <textarea
+            rows="4"
+            className="w-40 h-10 border ml-4 rounded-md p-2"
+            value={medicalRecord?.notes}
+            onChange={(e) =>
+              setMedicalRecord({
+                ...medicalRecord,
+                notes: e.target.value,
+              })
+            }
+            disabled={!isEditing}
+          />
+        </div>
 
           <div className="flex justify-end">
             {!isEditing ? (
