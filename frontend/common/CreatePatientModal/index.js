@@ -1,9 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Input from "../Input";
 import { useDispatch, useSelector } from "react-redux";
 import { createPatient } from "../../actions/PatientActions";
 import styles from "./styles/index.module.scss";
 import Dropdown from "../Dropdown";
+import { getAllDoctors } from "../../actions/DoctorActions";
 
 export default function CreatePatientModal({ open, setOpen }) {
   const dispatch = useDispatch();
@@ -26,13 +27,17 @@ export default function CreatePatientModal({ open, setOpen }) {
     surgicalHistory: "",
     pastMedicalHistory: "",
     doctors: allDoctors.data[0]?._id,
-    referringPhysicians: "",
+    referringPhysicians: null,
   });
 
   const create = useCallback(async () => {
     await dispatch(createPatient(formData));
     setOpen(false);
   }, [dispatch, formData]);
+
+  useEffect(() => {
+    dispatch(getAllDoctors());
+  }, [dispatch]);
 
   return (
     <div className={open ? styles.modalOpen : styles.modalClosed}>
