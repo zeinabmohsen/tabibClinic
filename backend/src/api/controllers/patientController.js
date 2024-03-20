@@ -133,9 +133,7 @@ const updatePatientById = async (req, res) => {
     const patientId = req.params.id;
     const updateData = req.body;
 
-    const patient = await Patient.findById(patientId)
-      .populate(["doctors", "referringPhysicians"])
-      .exec();
+    const patient = await Patient.findById(patientId);
     if (!patient) {
       return res.status(404).json({ error: "Patient not found" });
     }
@@ -143,8 +141,13 @@ const updatePatientById = async (req, res) => {
     Object.assign(patient, updateData);
     await patient.save();
 
+    const updatedPatient = await Patient.findById(patient._id)
+      .populate("doctors")
+      .populate("referringPhysicians")
+      .exec();
+
     return res.status(200).json({
-      ...patient.transform(),
+      ...updatedPatient.transform(),
     });
   } catch (error) {
     console.error(error);

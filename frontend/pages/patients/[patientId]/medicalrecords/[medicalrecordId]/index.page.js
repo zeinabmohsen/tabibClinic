@@ -75,17 +75,32 @@ const MedicalRecordDetails = () => {
             </div>
           )}
         </h2>
-        <div className="flex items-center mb-3">
-          <h3 className="text-lg font-semibold text-gray-800">Doctor:</h3>
-          <span className="ml-4 text-gray-800">
-            {medicalRecord?.doctor?.firstName} {medicalRecord?.doctor?.lastName}
-          </span>
-        </div>
+        {medicalRecord?.doctor && (
+          <div className="flex items-center mb-3">
+            <h3 className="text-lg font-semibold text-gray-800">Doctor:</h3>
+            <span className="ml-4 text-gray-800">
+              {medicalRecord?.doctor?.firstName}{" "}
+              {medicalRecord?.doctor?.lastName}
+            </span>
+          </div>
+        )}
         <div className="flex items-center mb-3">
           <h3 className="text-lg font-semibold text-gray-800">Patient:</h3>
           <span className="ml-4 text-gray-800">
             {medicalRecord?.patient?.firstName}{" "}
             {medicalRecord?.patient?.lastName}
+          </span>
+        </div>
+        <div className="flex items-center mb-3">
+          <h3 className="text-lg font-semibold text-gray-800">File Number:</h3>
+          <span className="ml-4 text-gray-800">
+            {medicalRecord?.patient?.fileNumber}
+          </span>
+        </div>
+        <div className="flex items-center mb-3">
+          <h3 className="text-lg font-semibold text-gray-800">Phone:</h3>
+          <span className="ml-4 text-gray-800">
+            {medicalRecord?.patient?.phone}
           </span>
         </div>
         <div className="flex items-center mb-3">
@@ -109,8 +124,33 @@ const MedicalRecordDetails = () => {
             disabled={!isEditing}
           />
         </div>
-    
+
         <div className="space-y-4">
+          <div className="flex flex-col">
+            <h3 className="text-lg font-semibold text-gray-800">Fees:</h3>
+            <input
+              className="w-24 border rounded-md py-1 px-2"
+              value={medicalRecord?.fees}
+              onChange={(e) =>
+                setMedicalRecord({ ...medicalRecord, fees: e.target.value })
+              }
+              disabled={!isEditing}
+            />
+          </div>
+          <div className=" flex flex-col mb-3">
+            <h3 className="text-lg font-semibold text-gray-800">Notes:</h3>
+            <textarea
+              className="border rounded-md p-2 w-1/3"
+              value={medicalRecord?.notes}
+              onChange={(e) =>
+                setMedicalRecord({
+                  ...medicalRecord,
+                  notes: e.target.value,
+                })
+              }
+              disabled={!isEditing}
+            />
+          </div>
           {medicalRecord?.attachments?.length > 0 && (
             <div>
               <h3 className="text-lg font-semibold text-gray-800">
@@ -186,34 +226,6 @@ const MedicalRecordDetails = () => {
               </ul>
             </div>
           )}
-
-          <div className="flex items-center">
-            <h3 className="text-lg font-semibold text-gray-800">Fees:</h3>
-            <input
-              className="ml-4 w-24 border rounded-md py-1 px-2"
-              value={medicalRecord?.fees}
-              onChange={(e) =>
-                setMedicalRecord({ ...medicalRecord, fees: e.target.value })
-              }
-              disabled={!isEditing}
-            />
-          </div>
-          <div className=" flex mb-3">
-          <h3 className="text-lg font-semibold text-gray-800">Notes:</h3>
-          <textarea
-            rows="4"
-            className="w-40 h-10 border ml-4 rounded-md p-2"
-            value={medicalRecord?.notes}
-            onChange={(e) =>
-              setMedicalRecord({
-                ...medicalRecord,
-                notes: e.target.value,
-              })
-            }
-            disabled={!isEditing}
-          />
-        </div>
-
           <div className="flex justify-end">
             {!isEditing ? (
               <button

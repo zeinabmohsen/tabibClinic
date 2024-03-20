@@ -252,13 +252,11 @@ const Patients = () => {
                       ? {
                           label:
                             allDoctors.data.find(
-                              (doctor) =>
-                                doctor?._id === newPatientData.doctors?._id
+                              (doctor) => doctor?._id === newPatientData.doctors
                             )?.firstName +
                             " " +
                             allDoctors.data.find(
-                              (doctor) =>
-                                doctor?._id === newPatientData.doctors?._id
+                              (doctor) => doctor?._id === newPatientData.doctors
                             )?.lastName,
                           value: newPatientData.doctors,
                         }
@@ -282,7 +280,6 @@ const Patients = () => {
               ) : null}
             </p>
           </div>
-
           <div className={styles.row}>
             <div className={styles.addSecondaryDoctor}>
               <h4>Secondary Doctor</h4>{" "}
@@ -309,13 +306,13 @@ const Patients = () => {
                             allDoctors.data.find(
                               (doctor) =>
                                 doctor?._id ===
-                                newPatientData.referringPhysicians?._id
+                                newPatientData.referringPhysicians
                             )?.firstName +
                             " " +
                             allDoctors.data.find(
                               (doctor) =>
                                 doctor?._id ===
-                                newPatientData.referringPhysicians?._id
+                                newPatientData.referringPhysicians
                             )?.lastName,
                           value: newPatientData.referringPhysicians,
                         }
@@ -339,7 +336,6 @@ const Patients = () => {
               ) : null}
             </p>
           </div>
-
           <div className={styles.row}>
             <h4>Gender</h4>
             <div>
@@ -492,8 +488,6 @@ const Patients = () => {
               <p>{selectedPatient?.weight}</p>
             )}
           </div>
-
-          {/* Insurance */}
           <div className={styles.row}>
             <h4>Insurance</h4>
             {editActive ? (
@@ -512,7 +506,6 @@ const Patients = () => {
               <p>{selectedPatient?.insurance}</p>
             )}
           </div>
-
           <div className={styles.row}>
             <h4>Allergies</h4>
             <p>
@@ -539,7 +532,6 @@ const Patients = () => {
               )}
             </p>
           </div>
-
           <div className={styles.row}>
             <h4>Past Medical History</h4>
             {editActive ? (
@@ -605,23 +597,19 @@ const Patients = () => {
 
           <div className={styles.row}>
             <h4>Notes</h4>
-            <p>
-              {addActive || editActive ? (
-                <Input
-                  type="text"
-                  value={newPatientData.notes || selectedPatient?.notes}
-                  placeholder=""
-                  setValue={(value) => {
-                    setNewPatientData((prev) => ({
-                      ...prev,
-                      notes: value,
-                    }));
-                  }}
-                />
-              ) : (
-                selectedPatient?.notes
-              )}
-            </p>
+            {addActive || editActive ? (
+              <textarea
+                value={newPatientData.notes || selectedPatient?.notes}
+                onChange={(e) => {
+                  setNewPatientData((prev) => ({
+                    ...prev,
+                    notes: e.target.value,
+                  }));
+                }}
+              />
+            ) : (
+              <p>{selectedPatient?.notes}</p>
+            )}
           </div>
         </div>
       </div>
