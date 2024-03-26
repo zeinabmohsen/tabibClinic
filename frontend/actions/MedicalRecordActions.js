@@ -13,39 +13,25 @@ export const ACTIONS = {
     "/record/:medicalRecordId/attachment/:attachmentId",
 };
 
-export const createMedicalRecord =
-  (patientId, { title, description, doctor }) =>
-  async (dispatch) => {
-    try {
-      const { data } = await axios.post(`/record/${patientId}`, {
-        title,
-        description,
-        doctor,
-      });
+export const createMedicalRecord = (patientId, mrData) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(`/record/${patientId}`, mrData);
+    toast.success("Medical record created successfully");
+    dispatch({ type: ACTIONS.CREATE_MEDICAL_RECORD, data });
+  } catch (error) {
+    toast.error("Error while creating medical record");
+  }
+};
 
-      toast.success("Medical record created successfully");
-      dispatch({ type: ACTIONS.CREATE_MEDICAL_RECORD, data });
-    } catch (error) {
-      toast.error("Error while creating medical record");
-    }
-  };
-
-export const updateMedicalRecord =
-  (id, { title, description, fees, services }) =>
-  async (dispatch) => {
-    try {
-      const { data } = await axios.put(`/record/${id}`, {
-        title,
-        description,
-        fees,
-        services,
-      });
-      toast.success("Medical record updated successfully");
-      dispatch({ type: ACTIONS.UPDATE_MEDICAL_RECORD, data });
-    } catch (error) {
-      toast.error("Error while updating medical record");
-    }
-  };
+export const updateMedicalRecord = (id, mrData) => async (dispatch) => {
+  try {
+    const { data } = await axios.put(`/record/${id}`, mrData);
+    toast.success("Medical record updated successfully");
+    dispatch({ type: ACTIONS.UPDATE_MEDICAL_RECORD, data });
+  } catch (error) {
+    toast.error("Error while updating medical record");
+  }
+};
 
 export const deleteMedicalRecord = (id) => async (dispatch) => {
   try {
