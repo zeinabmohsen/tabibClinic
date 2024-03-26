@@ -48,7 +48,6 @@ const patientSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-
     medicalRecords: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -88,6 +87,9 @@ const patientSchema = new mongoose.Schema(
     insurance: {
       type: String,
     },
+    notes: {
+      type: String,
+    },
   },
   {
     timestamps: true,
@@ -121,6 +123,7 @@ patientSchema.method({
       "insurance",
       "weight",
       "drugHistory",
+      "notes",
       "surgicalHistory",
       "pastMedicalHistory",
       "createdAt",
