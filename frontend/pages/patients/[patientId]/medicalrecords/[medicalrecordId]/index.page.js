@@ -88,9 +88,20 @@ const MedicalRecordDetails = () => {
           <h3 className="text-lg font-semibold text-gray-800">Patient:</h3>
           <span className="ml-4 text-gray-800">
             {medicalRecord?.patient?.firstName}{" "}
+            {medicalRecord?.patient?.middleName}{" "}
             {medicalRecord?.patient?.lastName}
           </span>
         </div>
+        {medicalRecord?.patient?.motherName && (
+          <div className="flex items-center mb-3">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Mother's Name:
+            </h3>
+            <span className="ml-4 text-gray-800">
+              {medicalRecord?.patient?.motherName}
+            </span>
+          </div>
+        )}
         <div className="flex items-center mb-3">
           <h3 className="text-lg font-semibold text-gray-800">File Number:</h3>
           <span className="ml-4 text-gray-800">
